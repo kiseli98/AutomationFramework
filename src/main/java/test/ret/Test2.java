@@ -5,6 +5,8 @@ public class Test2 {
         new Sub().hello();
         System.out.printf("%s\n", "------------");
         new Sub().hello();
+        System.out.printf("%s\n", "------------");
+        new Bar();
     }
 }
 
@@ -41,5 +43,20 @@ class Sub extends Base {
     public void hello() {
         // super.hello();
         System.out.printf("%s - %s\n", "sub", "method");
+    }
+}
+
+
+class Foo {
+    public Foo() {
+        System.out.println("FOO");
+    }
+}
+
+class Bar {
+    Foo foo = new Foo();
+
+    public Bar() {
+        System.out.println("BAR");
     }
 }
