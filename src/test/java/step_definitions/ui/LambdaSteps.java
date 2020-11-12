@@ -6,9 +6,9 @@ import step_definitions.hooks.Hooks;
 import support.page_objects.pages.EliteShoppyPage;
 import support.utils.BaseUtil;
 
-public class LambdaStep implements En {
+public class LambdaSteps implements En {
 
-    public LambdaStep() {
+    public LambdaSteps() {
 
         Given("I navigate to {string} URL", (String url) -> {
             Hooks.getDriver().get(url);

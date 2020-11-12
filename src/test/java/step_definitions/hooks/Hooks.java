@@ -3,6 +3,8 @@ package step_definitions.hooks;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -37,8 +39,10 @@ public class Hooks extends BaseUtil {
 
     @After
     public void afterScenario(Scenario scenario) {
-        if(scenario.isFailed()){
-            // TODO
+        if (scenario.isFailed()) {
+            System.out.println("Taking screenshot");
+            final byte[] screenshot = ((TakesScreenshot) base.driver).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshot, "image/png", scenario.getName());
         }
 
         System.out.println("After scenario...");
