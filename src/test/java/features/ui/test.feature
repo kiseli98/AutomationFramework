@@ -11,7 +11,7 @@ Feature: UI - Test feature
     Examples:
       | Username | Password      |
       | admin    | adminpassword |
-#      | admin1   | adminpassword1 |
+      | admin1   | adminpassword1 |
 
 
   Scenario: I am on google page
