@@ -6,6 +6,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import support.managers.FileReaderManager;
+import support.managers.WebDriverManager;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -13,30 +14,27 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class WebElementX {
-    protected WebDriver driver;
+    protected WebDriver driver = WebDriverManager.getInstance().getDriver();
     protected WebElementX parentElement;
     protected By locator;
     protected String name;
     protected final long IMPLICIT_NO_TIMEOUT = 500;
     protected final long DEFAULT_TIMEOUT = FileReaderManager.getInstance().getConfigReader().getImplicitWait();
 
-    public WebElementX(By locator, String name, WebElementX parentElement, WebDriver driver) {
+    public WebElementX(By locator, String name, WebElementX parentElement) {
         this.locator = locator;
         this.name = name != null ? name : locator.toString();
         this.parentElement = parentElement;
-        this.driver = driver;
     }
 
-    public WebElementX(By locator, String name, WebDriver driver) {
+    public WebElementX(By locator, String name) {
         this.locator = locator;
         this.name = name != null ? name : locator.toString();
-        this.driver = driver;
     }
 
-    public WebElementX(By locator, WebDriver driver) {
+    public WebElementX(By locator) {
         this.locator = locator;
         this.name = locator.toString();
-        this.driver = driver;
     }
 
     public <T extends WebElementX> T elementOfType(By locator, String name, Class<T> clazz) {
@@ -56,11 +54,11 @@ public class WebElementX {
     }
 
     public WebElementX element(By locator) {
-        return new WebElementX(locator, null, this, this.driver);
+        return new WebElementX(locator, null, this);
     }
 
     public ElementsList<WebElementX> elements(By locator) {
-        return new ElementsList<WebElementX>(locator, null, this, this.driver);
+        return new ElementsList<WebElementX>(locator, null, this);
     }
 
     public List<WebElement> all(By locator) {

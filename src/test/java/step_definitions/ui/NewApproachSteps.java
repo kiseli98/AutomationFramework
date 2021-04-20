@@ -2,7 +2,7 @@ package step_definitions.ui;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java8.En;
-import support.cucumber.TestContext;
+import support.context.TestContext;
 import support.page_objects.pages.WebStorePage;
 import support.page_objects.webelements.Button;
 

@@ -16,10 +16,10 @@ public class PageObjectManager {
 
 
     public GooglePage getGooglePage() {
-        return (googlePage == null) ? googlePage = new GooglePage("Google", this.driver) : googlePage;
+        return (googlePage == null) ? googlePage = new GooglePage("Google") : googlePage;
     }
 
     public WebStorePage getWebStorePage() {
-        return (webStorePage == null) ? webStorePage = new WebStorePage("WebStore", this.driver) : webStorePage;
+        return (webStorePage == null) ? webStorePage = new WebStorePage("WebStore") : webStorePage;
     }
 }

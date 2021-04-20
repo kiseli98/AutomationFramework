@@ -1,15 +1,17 @@
-package support.cucumber;
+package support.context;
 
 import support.managers.PageObjectManager;
 import support.managers.WebDriverManager;
 
 public class TestContext {
-    private WebDriverManager webDriverManager;
-    private PageObjectManager pageObjectManager;
+    WebDriverManager webDriverManager;
+    PageObjectManager pageObjectManager;
+    ScenarioContext scenarioContext;
 
     public TestContext(){
-        webDriverManager = new WebDriverManager();
+        webDriverManager = WebDriverManager.getInstance();
         pageObjectManager = new PageObjectManager(webDriverManager.getDriver());
+        scenarioContext = new ScenarioContext();
     }
 
     public WebDriverManager getWebDriverManager() {
@@ -18,6 +20,10 @@ public class TestContext {
 
     public PageObjectManager getPageObjectManager() {
         return pageObjectManager;
+    }
+
+    public ScenarioContext getScenarioContext() {
+        return scenarioContext;
     }
 
 }

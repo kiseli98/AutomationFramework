@@ -10,9 +10,9 @@ public class OrderHistoryComponent extends BaseComponent {
     public WebElementX ordersTable;
 
 
-    public OrderHistoryComponent(By locator, String name, WebDriver driver) {
-        super(locator, name, driver);
-        this.ordersTable = new WebElementX(By.xpath(".//table[@id=\"order-list\"]"), "Orders table", this, driver);
+    public OrderHistoryComponent(By locator, String name) {
+        super(locator, name);
+        this.ordersTable = new WebElementX(By.xpath(".//table[@id=\"order-list\"]"), "Orders table", this);
 
     }
 

@@ -1,12 +1,11 @@
 package support.page_objects.webelements;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 public class TextInput extends WebElementX {
 
-    public TextInput(By locator, String name, WebElementX parentElement, WebDriver driver) {
-        super(locator, name != null ? name + " TextInput" : null, parentElement, driver);
+    public TextInput(By locator, String name, WebElementX parentElement) {
+        super(locator, name != null ? name + " TextInput" : null, parentElement);
     }
 
     public void appendKeys(String text) {

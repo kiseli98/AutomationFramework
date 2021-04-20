@@ -13,23 +13,20 @@ import java.util.concurrent.TimeUnit;
 
 public class WebDriverManager {
     private WebDriver driver;
-    private static WebDriverManager instance;
     private ConfigFileReader config = FileReaderManager.getInstance().getConfigReader();
+    private static WebDriverManager instance = new WebDriverManager();
     private static DriverType driverType;
     private static EnvironmentType environmentType;
     private static final String CHROME_DRIVER_PROPERTY = "webdriver.chrome.driver";
 
-    public WebDriverManager() {
+    private WebDriverManager() {
         driverType = config.getBrowser();
         environmentType = config.getEnvironment();
     }
 
-//    public static WebDriverManager getInstance() {
-//        if (instance == null){
-//            instance = new WebDriverManager();
-//        }
-//        return instance;
-//    }
+    public static WebDriverManager getInstance() {
+        return instance;
+    }
 
     public WebDriver getDriver() {
         if(driver == null) driver = createDriver();

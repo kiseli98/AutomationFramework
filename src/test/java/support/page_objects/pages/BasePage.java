@@ -1,15 +1,15 @@
 package support.page_objects.pages;
 
 import org.openqa.selenium.WebDriver;
+import support.managers.WebDriverManager;
 
 public abstract class BasePage {
     public String baseUrl = "";
     public String name;
-    public WebDriver driver;
+    public WebDriver driver = WebDriverManager.getInstance().getDriver();
 
-    public BasePage(String name, WebDriver driver){
+    public BasePage(String name){
         this.name = name;
-        this.driver = driver;
         System.out.println("Constructing Page:: " + this.name);
     }
 

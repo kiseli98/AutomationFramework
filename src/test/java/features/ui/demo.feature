@@ -1,7 +1,7 @@
 Feature: UI - Creation and execution of automated tests on a live web application (DEMO)
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
-
+  @runThis
   Scenario: As a user, I want to see my order history - new approach
     Given I am on the store page
     When I login with the following credentials

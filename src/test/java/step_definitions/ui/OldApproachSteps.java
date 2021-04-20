@@ -12,8 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import support.cucumber.TestContext;
-import support.page_objects.webelements.Button;
+import support.context.TestContext;
 
 import java.time.Duration;
 import java.util.Map;

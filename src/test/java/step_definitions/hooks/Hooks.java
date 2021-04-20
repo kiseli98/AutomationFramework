@@ -5,8 +5,7 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import support.cucumber.TestContext;
+import support.context.TestContext;
 
 public class Hooks {
     private TestContext testContext;

@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(features = "src/test/java/features/ui",
         glue = {"step_definitions.hooks", "support.ui_dto.config",
                 "step_definitions.api", "step_definitions.ui"},
+//        tags = "@runThis",
         monochrome = true,
         plugin = {"pretty",
                 "json:target/cucumber-reports/report.json",

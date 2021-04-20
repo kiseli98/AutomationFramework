@@ -1,8 +1,7 @@
 package step_definitions.ui;
 
-import io.cucumber.java.en.Given;
 import io.cucumber.java8.En;
-import support.cucumber.TestContext;
+import support.context.TestContext;
 import support.page_objects.pages.BasePage;
 import support.page_objects.pages.GooglePage;
 

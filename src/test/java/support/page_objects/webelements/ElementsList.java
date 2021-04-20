@@ -3,6 +3,7 @@ package support.page_objects.webelements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import support.managers.WebDriverManager;
 import support.utils.Helpers;
 
 import java.lang.reflect.Constructor;
@@ -10,16 +11,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class ElementsList<T extends WebElementX> {
-    protected WebDriver driver;
+    protected WebDriver driver = WebDriverManager.getInstance().getDriver();
     protected WebElementX parentElement;
     protected By locator;
     protected String name;
 
-    public ElementsList(By locator, String name, WebElementX parentElement, WebDriver driver) {
+    public ElementsList(By locator, String name, WebElementX parentElement) {
         this.locator = locator;
         this.name = name != null ? name : locator.toString();
         this.parentElement = parentElement;
-        this.driver = driver;
     }
 
 //    TODO

@@ -2,17 +2,15 @@ package step_definitions.ui;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
-import support.cucumber.TestContext;
+import support.context.TestContext;
 import support.page_objects.pages.GooglePage;
 import support.ui_dto.Value;
 import support.utils.Helpers;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
