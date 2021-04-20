@@ -22,5 +22,14 @@ public class User {
         this.password = rowData.get("Password");
     }
 
+    public static User createUserFromTable(DataTable table, int index) {
+        Map<String,String> rowData = table.asMaps().get(index);
+        User user = new User();
+        user.setUsername("Username");
+        user.setPassword("Password");
+        user.setEmail("Email");
+        return user;
+    }
+
 }
 

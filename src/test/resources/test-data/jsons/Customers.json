@@ -1,0 +1,18 @@
+{
+  "firstName": "Virender",
+  "lastName": "Singh",
+  "age": 35,
+  "emailAddress": "Virender@Gmail.com",
+  "address": {
+    "streetAddress": "Palam Vihar",
+    "city": "Gurgaon",
+    "postCode": "122345",
+    "state": "Haryana",
+    "country": "India",
+    "county": "Delhi"
+  },
+  "phoneNumber": {
+    "home": "012345678",
+    "mob": "0987654321"
+  }
+}

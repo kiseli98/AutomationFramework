@@ -1,25 +1,31 @@
 package step_definitions.ui;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
+import support.cucumber.TestContext;
 import support.page_objects.pages.GooglePage;
-import support.utils.BaseUtil;
+import support.ui_dto.Value;
+import support.utils.Helpers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class GoogleSteps extends BaseUtil {
-    private BaseUtil base;
+public class GoogleSteps {
+    private TestContext testContext;
     private GooglePage googlePage;
 
     private List<String> searchResults;
 
-    public GoogleSteps(BaseUtil base) {
-        this.base = base;
-        googlePage = new GooglePage(base.driver, "https://google.com/");
+    public GoogleSteps(TestContext context) {
+        this.testContext = context;
+        googlePage = testContext.getPageObjectManager().getGooglePage();
+
     }
 
     @When("I set language to {string}")
@@ -51,24 +57,33 @@ public class GoogleSteps extends BaseUtil {
     public void iCheckSearchResultsAreEqual() {
         List<String> res = googlePage.searchResults.stream().map(el -> el.getText().trim()).collect(Collectors.toList());
 
-//        System.out.println(res);
-//        System.out.println("--------------------------------");
-//        System.out.println(this.searchResults);
-
         Assert.assertTrue("Results are not equal", res.containsAll(this.searchResults));
     }
 
     @Then("^I see (calculator|money converter) widget$")
     public void iSeeWidget(String param) {
         WebElement widget = null;
-        switch (param){
+        switch (param) {
             case "calculator":
                 widget = googlePage.calculatorComponent;
                 break;
             case "money converter":
                 widget = googlePage.moneyConverterComponent;
-                break;
+                throw new Error("Demo error. Test fails here");
         }
         Assert.assertTrue("Widget is not displayed", widget.isDisplayed());
     }
+
+    @When("I type values")
+    public void iTypeValue(DataTable dataTable) {
+        List<String> values = dataTable.asLists().stream().map(el -> el.get(0)).collect(Collectors.toList());
+        values.remove(0);
+        System.out.println(values);
+
+        Helpers.range(dataTable.asMaps().size()).forEach( i -> {
+            googlePage.searchFor(Value.createValueFromTable(dataTable, i).getValue());
+        });
+    }
+
+
 }
