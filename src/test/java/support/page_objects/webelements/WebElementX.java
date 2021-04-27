@@ -1,5 +1,6 @@
 package support.page_objects.webelements;
 
+import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class WebElementX {
+    final Logger logger = Logger.getLogger(WebElementX.class);
+
     protected WebDriver driver = WebDriverManager.getInstance().getDriver();
     protected WebElementX parentElement;
     protected By locator;
@@ -40,8 +43,8 @@ public class WebElementX {
     public <T extends WebElementX> T elementOfType(By locator, String name, Class<T> clazz) {
         T object = null;
         try {
-            Constructor<?> ctor  = clazz.getConstructor(By.class, String.class, WebElementX.class, WebDriver.class);
-            object = (T) ctor.newInstance(locator, name, this, this.driver);
+            Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class, WebDriver.class);
+            object = (T) ctor.newInstance(locator, name, this);
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -75,31 +78,45 @@ public class WebElementX {
 
 
     public void click() {
-        System.out.println("Clicking:: " + this.name);
+        logger.info("Clicking:: " + this.name);
         this.getRawElement().click();
     }
 
     public void hover() {
         if (this.isDisplayed()) {
-            System.out.println("Hovering:: " + this.name);
+            logger.info("Hovering:: " + this.name);
             new Actions(this.driver).moveToElement(this.getRawElement()).perform();
         } else {
             throw new Error("Cannot hover invisible element");
         }
     }
 
+    public void hover(WebElementX el) {
+        if (this.isDisplayed()) {
+            logger.info("Hovering:: " + this.name);
+            new Actions(this.driver).moveToElement(el.getRawElement()).moveToElement(this.getRawElement()).perform();
+        } else {
+            throw new Error("Cannot hover invisible element");
+        }
+    }
+
     public void doubleClick() {
-        System.out.println("Double clicking:: " + this.name);
+        logger.info("Double clicking:: " + this.name);
         new Actions(this.driver).doubleClick(this.getRawElement()).perform();
     }
 
+    public void rightClick() {
+        logger.info("Right clicking:: " + this.name);
+        new Actions(this.driver).contextClick(this.getRawElement()).perform();
+    }
+
     public void moveMouseAndClick() {
-        System.out.println("Double clicking:: " + this.name);
+        logger.info("Double clicking:: " + this.name);
         new Actions(this.driver).moveToElement(this.getRawElement()).click().perform();
     }
 
     public String getText() {
-        System.out.println("Getting text:: " + this.name);
+        logger.info("Getting text:: " + this.name);
         return this.getRawElement().getText();
     }
 
@@ -109,37 +126,37 @@ public class WebElementX {
     }
 
     public boolean isDisplayed() {
-        System.out.println("Is Displayed:: " + this.name);
+        logger.info("Is Displayed:: " + this.name);
         return this.getRawElement().isDisplayed();
     }
 
     public boolean isEnabled() {
-        System.out.println("Checking if Enabled:: " + this.name);
+        logger.info("Checking if Enabled:: " + this.name);
         return this.getRawElement().isEnabled();
     }
 
     public boolean isPresent() {
-        System.out.println("Is Present:: " + this.name);
+        logger.info("Is Present:: " + this.name);
         return this.driver.findElements(this.locator).size() > 0;
     }
 
     public boolean isNotPresent() {
-        System.out.println("Is Present:: " + this.name);
+        logger.info("Is Present:: " + this.name);
         return this.driver.findElements(this.locator).size() == 0;
     }
 
     public void sendKeys(String text) {
-        System.out.println("Sending keys to:: " + this.name);
+        logger.info("Sending keys to:: " + this.name);
         this.getRawElement().sendKeys(text);
     }
 
     public void sendKeys(Keys key) {
-        System.out.println("Sending keys to:: " + this.name);
+        logger.info("Sending keys to:: " + this.name);
         this.getRawElement().sendKeys(key);
     }
 
     public void browserClick() {
-        System.out.println("Browser click:: " + this.name);
+        logger.info("Browser click:: " + this.name);
         ((JavascriptExecutor) driver).executeScript("arguments[0].click()", this.getRawElement());
     }
 
@@ -156,7 +173,7 @@ public class WebElementX {
     }
 
     public void scrollTo() {
-        System.out.println("Scrolling to:: " + this.name);
+        logger.info("Scrolling to:: " + this.name);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView()", this.getRawElement());
     }
 
@@ -166,15 +183,15 @@ public class WebElementX {
 
     public boolean waitTillIsGone(long timeoutInSeconds) {
         boolean isGone;
-        System.out.println("Waiting till element [" + this.name + "] is gone");
+        logger.info("Waiting till element [" + this.name + "] is gone");
         this.setImplicitTimeout(IMPLICIT_NO_TIMEOUT);
         WebDriverWait wait = new WebDriverWait(this.driver, timeoutInSeconds);
         isGone = wait.until(ExpectedConditions.invisibilityOfElementLocated(this.locator));
         this.resetImplicitTimeout();
         if (isGone) {
-            System.out.println("Element is gone");
+            logger.info("Element is gone");
         } else {
-            System.out.println("Element is still present");
+            logger.info("Element is still present");
         }
         return isGone;
     }
@@ -183,28 +200,28 @@ public class WebElementX {
 //TODO test not.invisibilityOf solution
     public boolean waitTillIsVisible(long timeoutInSeconds) {
         boolean isVisible = false;
-        System.out.println("Waiting till element [" + this.name + "] is visible");
+        logger.info("Waiting till element [" + this.name + "] is visible");
         WebDriverWait wait = new WebDriverWait(this.driver, timeoutInSeconds);
         WebElement el = wait.until(ExpectedConditions.visibilityOfElementLocated(this.locator));
         this.resetImplicitTimeout();
         if (el != null) {
             isVisible = true;
-            System.out.println("Element has become visible");
+            logger.info("Element has become visible");
         } else {
-            System.out.println("Element is still not visible");
+            logger.info("Element is still not visible");
         }
         return isVisible;
     }
 
 
     public boolean waitElementToHaveText(String text, long timeoutInSeconds) {
-        System.out.println("Waiting till element [" + this.name + "] is has text: " + text);
+        logger.info("Waiting till element [" + this.name + "] is has text: " + text);
         WebDriverWait wait = new WebDriverWait(this.driver, timeoutInSeconds);
         boolean textPresent = wait.until(ExpectedConditions.textToBePresentInElementLocated(this.locator, text));
         if (textPresent) {
-            System.out.println("Text is present");
+            logger.info("Text is present");
         } else {
-            System.out.println("Expected text is missing");
+            logger.info("Expected text is missing");
         }
         return textPresent;
     }
@@ -212,14 +229,14 @@ public class WebElementX {
 
     public boolean waitTillIsPresent(long timeoutInSeconds) {
         boolean isPresent = false;
-        System.out.println("Waiting till element [" + this.name + "] is present in DOM");
+        logger.info("Waiting till element [" + this.name + "] is present in DOM");
         WebDriverWait wait = new WebDriverWait(this.driver, timeoutInSeconds);
         WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(this.locator));
         if (el != null) {
             isPresent = true;
-            System.out.println("Element is present");
+            logger.info("Element is present");
         } else {
-            System.out.println("Element is not present");
+            logger.info("Element is not present");
         }
         return isPresent;
     }
@@ -227,26 +244,26 @@ public class WebElementX {
 
     public boolean waitTillIsEnabled(long timeoutInSeconds) {
         boolean isEnabled = false;
-        System.out.println("Waiting till element [" + this.name + "] is enabled and clickable");
+        logger.info("Waiting till element [" + this.name + "] is enabled and clickable");
         WebDriverWait wait = new WebDriverWait(this.driver, timeoutInSeconds);
         WebElement el = wait.until(ExpectedConditions.elementToBeClickable(this.locator));
         if (el != null) {
             isEnabled = true;
-            System.out.println("Element is enabled");
+            logger.info("Element is enabled");
         } else {
-            System.out.println("Element is not enabled");
+            logger.info("Element is not enabled");
         }
         return isEnabled;
     }
 
     public boolean waitTillIsDisabled(long timeoutInSeconds) {
-        System.out.println("Waiting till element [" + this.name + "] is disabled");
+        logger.info("Waiting till element [" + this.name + "] is disabled");
         WebDriverWait wait = new WebDriverWait(this.driver, timeoutInSeconds);
         boolean isDisabled = wait.until(ExpectedConditions.not(ExpectedConditions.elementToBeClickable(this.locator)));
         if (isDisabled) {
-            System.out.println("Element is disabled");
+            logger.info("Element is disabled");
         } else {
-            System.out.println("Element is still enabled");
+            logger.info("Element is still enabled");
         }
         return isDisabled;
     }

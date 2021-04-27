@@ -10,24 +10,24 @@ public class CheckBox extends WebElementX {
     }
 
     public boolean isChecked() {
-        System.out.println("Checking state of checkbox:: " + this.name);
+        logger.info("Checking state of checkbox:: " + this.name);
         return this.element(By.xpath(".//input")).getRawElement().isSelected();
     }
 
     public void click() {
-        System.out.println("Clicking checkbox:: " + this.name);
+        logger.info("Clicking checkbox:: " + this.name);
         this.element(By.xpath(".//input[@type='checkbox']")).click();
     }
 
     public void check() {
-        System.out.println("Ticking the checkbox:: " + this.name);
+        logger.info("Ticking the checkbox:: " + this.name);
         if (!this.isChecked()) {
             this.click();
         }
     }
 
     public void unCheck() {
-        System.out.println("Un-Ticking the checkbox:: " + this.name);
+        logger.info("Un-Ticking the checkbox:: " + this.name);
         if (this.isChecked()) {
             this.click();
         }

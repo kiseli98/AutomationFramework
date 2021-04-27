@@ -28,7 +28,7 @@ public class ElementResolver {
     }
 
     public static void main(String[] args) {
-        String name = Objects.requireNonNull(resolve("GooglePage > searchBtnX")).getName();
+        String name = Objects.requireNonNull(resolve("WebStorePage > authenticationComponent > emailInput")).getName();
         System.out.println(name);
     }
 }

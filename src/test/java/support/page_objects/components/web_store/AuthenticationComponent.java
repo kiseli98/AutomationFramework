@@ -7,12 +7,14 @@ import support.page_objects.webelements.Button;
 import support.page_objects.webelements.TextInput;
 
 public class AuthenticationComponent extends BaseComponent {
+    public static AuthenticationComponent instance = new AuthenticationComponent(By.xpath(".//form[@id=\"login_form\"]"), "Auth");
+
     public TextInput emailInput;
     public TextInput passwordInput;
     public Button signInButton;
 
 
-    public AuthenticationComponent(By locator, String name) {
+    private AuthenticationComponent(By locator, String name) {
         super(locator, name);
         this.emailInput = new TextInput(By.xpath(".//input[@name=\"email\"]"), "Email", this);
         this.passwordInput = new TextInput(By.xpath(".//input[@name=\"passwd\"]"), "Password", this);

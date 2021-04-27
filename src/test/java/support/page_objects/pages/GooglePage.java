@@ -13,14 +13,14 @@ import java.util.List;
 
 public class GooglePage extends ContentPage {
     String url = this.buildUrl("https://google.com/");
-//    public static GooglePage instance = new GooglePage(Hooks.getDriver(), "https://google.com/");
+    public static GooglePage instance = new GooglePage("GooglePage");
 
 
-    private WebElementX searchBtnX;
-    private TextInput searchbarX;
-    private WebElementX testEl;
+    public WebElementX searchBtnX;
+    public TextInput searchbarX;
+    public WebElementX testEl;
 
-    public GooglePage(String name) {
+    private GooglePage(String name) {
         super(name);
         PageFactory.initElements(driver, this);
 

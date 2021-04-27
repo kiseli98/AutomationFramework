@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 public class BaseComponent extends WebElementX {
 
     public BaseComponent(By locator, String name) {
-        super(locator, name);
+        super(locator, name + " component");
     }
 
 }

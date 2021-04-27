@@ -17,17 +17,17 @@ public class PlainDropDown extends WebElementX {
     }
 
     public void setOptionByName(String option) {
+        logger.info("Selection option [" + option + "]");
         this.optionsRepeater.getByContainingText(option, WebElementX.class).click();
     }
 
-//    TODO
-//    public void setOptionByIndex(int index) {
-//       if (index < 0) {
-//            this.optionsRepeater.getLast().click();
-//        }
-//       else {
-//            this.optionsRepeater.get(index, WebElementX).click();
-//       }
-//    }
+    public void setOptionByIndex(int index) {
+       if (index < 0) {
+            this.optionsRepeater.getLast().click();
+        }
+       else {
+            this.optionsRepeater.get(index, WebElementX.class).click();
+       }
+    }
 
 }

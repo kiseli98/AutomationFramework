@@ -1,15 +1,15 @@
 package support.page_objects.webelements;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 
 public class TextInput extends WebElementX {
-
     public TextInput(By locator, String name, WebElementX parentElement) {
         super(locator, name != null ? name + " TextInput" : null, parentElement);
     }
 
     public void appendKeys(String text) {
-        System.out.println("Typing:: [" + text + "] into " + this.name);
+        logger.info("Typing:: [" + text + "] into " + this.name);
         this.getRawElement().sendKeys(text);
     }
 

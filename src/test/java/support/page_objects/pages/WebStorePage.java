@@ -7,20 +7,17 @@ import support.page_objects.components.web_store.MyAccountComponent;
 import support.page_objects.components.web_store.OrderHistoryComponent;
 
 public class WebStorePage extends ContentPage {
+    public static WebStorePage instance = new WebStorePage("WebStorePage");
     String url = this.buildUrl("http://automationpractice.com/");
 
-    public AuthenticationComponent authenticationComponent;
-    public MyAccountComponent myAccountComponent;
-    public OrderHistoryComponent orderHistoryComponent;
-    public Header header;
+    public AuthenticationComponent authenticationComponent = AuthenticationComponent.instance;
+    public MyAccountComponent myAccountComponent = MyAccountComponent.instance;
+    public OrderHistoryComponent orderHistoryComponent = OrderHistoryComponent.instance;
+    public Header header = Header.instance;
 
 
-    public WebStorePage(String name) {
+    private WebStorePage(String name) {
         super(name);
-        this.header = new Header(By.xpath(".//nav"), "Header", driver);
-        this.authenticationComponent = new AuthenticationComponent(By.xpath(".//form[@id=\"login_form\"]"), "Auth");
-        this.myAccountComponent = new MyAccountComponent(By.xpath(".//div[@id=\"center_column\" and .//h1[.=\"My account\"]]"), "My account");
-        this.orderHistoryComponent = new OrderHistoryComponent(By.xpath(".//div[@id=\"center_column\" and .//h1[.=\"Order history\"]]"), "Order History");
     }
 
 

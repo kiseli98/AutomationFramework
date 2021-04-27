@@ -11,7 +11,7 @@ public class FileUpload extends WebElementX {
     public void uploadFile(String file) {
 //        TODO
 //        String absolutePath = file + smth
-        System.out.println("Uploading File: " + file);
+        logger.info("Uploading File: " + file);
         this.getRawElement().sendKeys(file);
     }
 }

@@ -1,5 +1,8 @@
 package support.utils;
 
+import org.apache.log4j.Logger;
+import support.page_objects.webelements.WebElementX;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -20,15 +23,15 @@ public class Helpers {
     // returns first match of p in s for nth group in regular expression
     public static String getRegexMatch(String s, String pattern, int group) {
         Matcher m = Pattern.compile(pattern).matcher(s);
-        return m.find() ? m.group(0) : "";
+        return m.find() ? m.group(group) : "";
     }
 
     // returns all matches of p in s for nth group in regular expression
     public static List<String> getRegexMatches(String s, String pattern, int group) {
-        List<String> matches = new ArrayList<String>();
+        List<String> matches = new ArrayList<>();
         Matcher m = Pattern.compile(pattern).matcher(s);
         while(m.find()) {
-            matches.add(m.group(0));
+            matches.add(m.group(group));
         }
         return matches;
     }
