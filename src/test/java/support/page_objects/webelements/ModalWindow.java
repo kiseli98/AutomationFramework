@@ -1,6 +1,7 @@
 package support.page_objects.webelements;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 public class ModalWindow extends WebElementX {
     static String defaultLocator = "TODO";
@@ -24,12 +25,12 @@ public class ModalWindow extends WebElementX {
             ".//button[normalize-space()=\"Abort\"]"
     );
 
-    public ModalWindow(By locator, String name, WebElementX parentElement) {
-        super(locator, name != null ? name + " Modal" : null, parentElement);
+    public ModalWindow(By locator, String name, WebElementX parentElement, WebDriver driver) {
+        super(locator, name != null ? name + " Modal" : null, parentElement, driver);
     }
 
-    public ModalWindow(String modalText) {
-        super(By.xpath(defaultLocator.replaceAll("modalName", modalText)), "Modal:: " + modalText);
+    public ModalWindow(String modalText, WebDriver driver) {
+        super(By.xpath(defaultLocator.replaceAll("modalName", modalText)), "Modal:: " + modalText, driver);
     }
 
     public WebElementX getConfirmButton() {

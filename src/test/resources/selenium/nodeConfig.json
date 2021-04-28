@@ -2,20 +2,8 @@
   "capabilities":
   [
     {
-      "browserName": "firefox",
-      "marionette": true,
-      "maxInstances": 5,
-      "seleniumProtocol": "WebDriver"
-    },
-    {
       "browserName": "chrome",
       "maxInstances": 5,
-      "seleniumProtocol": "WebDriver"
-    },
-    {
-      "browserName": "internet explorer",
-      "platform": "WINDOWS",
-      "maxInstances": 1,
       "seleniumProtocol": "WebDriver"
     },
     {

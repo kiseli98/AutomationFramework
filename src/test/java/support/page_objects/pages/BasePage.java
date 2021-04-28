@@ -9,10 +9,11 @@ public abstract class BasePage {
     final Logger logger = Logger.getLogger(BasePage.class);
     public String baseUrl = "";
     public String name;
-    public WebDriver driver = WebDriverManager.getInstance().getDriver();
+    public WebDriver driver;
 
-    public BasePage(String name){
+    public BasePage(String name, WebDriver driver){
         this.name = name;
+        this.driver = driver;
         logger.info("Constructing Page:: " + this.name);
     }
 

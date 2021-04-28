@@ -13,20 +13,20 @@ import java.util.List;
 
 public class GooglePage extends ContentPage {
     String url = this.buildUrl("https://google.com/");
-    public static GooglePage instance = new GooglePage("GooglePage");
+//    public static GooglePage instance = new GooglePage("GooglePage");
 
 
     public WebElementX searchBtnX;
     public TextInput searchbarX;
     public WebElementX testEl;
 
-    private GooglePage(String name) {
-        super(name);
-        PageFactory.initElements(driver, this);
+    public GooglePage(String name, WebDriver driver) {
+        super(name, driver);
+        PageFactory.initElements(this.driver, this);
 
-        this.searchBtnX = new WebElementX(By.name("btnK"), "Search button", null);
-        this.searchbarX = new TextInput(By.name("q"), "Search bar", null);
-        this.testEl = new WebElementX(By.xpath(".//body"), "test el", null);
+        this.searchBtnX = new WebElementX(By.name("btnK"), "Search button", null, driver);
+        this.searchbarX = new TextInput(By.name("q"), "Search bar", null, driver);
+        this.testEl = new WebElementX(By.xpath(".//body"), "test el", null, driver);
     }
 
 

@@ -19,42 +19,46 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class WebDriverActions {
-    static final Logger logger = Logger.getLogger(WebDriverActions.class);
-    private static String MainWindow = null;
-
-    public static String getPageTitle() {
+    final Logger logger = Logger.getLogger(WebDriverActions.class);
+    private String MainWindow = null;
+    private WebDriver driver;
+    
+    public WebDriverActions(WebDriver driver) {
+        this.driver = driver;
+    }
+    
+    public String getPageTitle() {
         logger.info("Getting page title");
-        return WebDriverManager.getInstance().getDriver().getTitle();
+        return driver.getTitle();
     }
 
-    public static void acceptAlert() {
+    public void acceptAlert() {
         logger.info("Accepting alert");
-        WebDriverManager.getInstance().getDriver().switchTo().alert().accept();
+        driver.switchTo().alert().accept();
     }
 
-    public static void rejectAlert() {
+    public void rejectAlert() {
         logger.info("Rejecting alert");
-        WebDriverManager.getInstance().getDriver().switchTo().alert().dismiss();
+        driver.switchTo().alert().dismiss();
     }
 
-    public static String getAlertText() {
+    public String getAlertText() {
         logger.info("Getting alert text");
-        return WebDriverManager.getInstance().getDriver().switchTo().alert().getText();
+        return driver.switchTo().alert().getText();
     }
 
-    public static void sendAlertKeys(String text) {
+    public void sendAlertKeys(String text) {
         logger.info("Typing:: [" + text + "] into alert");
-        WebDriverManager.getInstance().getDriver().switchTo().alert().sendKeys(text);
+        driver.switchTo().alert().sendKeys(text);
     }
 
-    public static void setMainWindow() {
-        MainWindow = WebDriverManager.getInstance().getDriver().getWindowHandle();
+    public void setMainWindow() {
+        MainWindow = driver.getWindowHandle();
         logger.info("Main Window is set to " + MainWindow);
     }
 
-    public static void switchToChildWindow() {
+    public void switchToChildWindow() {
         logger.info("Switching to child window");
-        WebDriver driver = WebDriverManager.getInstance().getDriver();
         setMainWindow();
         Set<String> s1 = driver.getWindowHandles();
         Iterator<String> i1 = s1.iterator();
@@ -67,45 +71,30 @@ public class WebDriverActions {
         }
     }
 
-    public static void closeWindow() {
+    public void closeWindow() {
         logger.info("Closing current window");
-        WebDriverManager.getInstance().getDriver().close();
+        driver.close();
     }
 
-    public static void switchToMainWindow() {
+    public void switchToMainWindow() {
         logger.info("Switching to Main Window - " + MainWindow);
 
         if (MainWindow != null) {
-            WebDriverManager.getInstance().getDriver().switchTo().window(MainWindow);
+            driver.switchTo().window(MainWindow);
         } else {
             throw new Error("Main window is not set");
         }
     }
 
-    public static void closeAndSwitchToParentWindow() {
+    public void closeAndSwitchToParentWindow() {
         closeWindow();
         switchToMainWindow();
     }
 
 
-    public static void main(String[] args) {
+    public void main(String[] args) {
 
-
-//        final Logger logger = Logger.getLogger(WebDriverActions.class);
-//        String parameter = "test";
-//        if(logger.isDebugEnabled()){
-//            logger.debug("This is debug : " + parameter);
-//        }
-//
-//        if(logger.isInfoEnabled()){
-//            logger.info("This is info : " + parameter);
-//        }
-//
-//        logger.warn("This is warn : " + parameter);
-//        logger.error("This is error : " + parameter);
-//        logger.fatal("This is fatal : " + parameter);
-
-//        WebDriver driver = WebDriverManager.getInstance().getDriver();
+//        WebDriver driver = driver;
 //        driver.get("http://demo.guru99.com/test/web-table-element.php");
 //        SimpleTable table = new SimpleTable(By.xpath(".//table"), null, null);
 //

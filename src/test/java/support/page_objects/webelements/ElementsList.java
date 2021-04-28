@@ -23,15 +23,16 @@ public class ElementsList<T extends WebElementX> {
     final Logger logger = Logger.getLogger(ElementsList.class);
     protected static final String xpathPattern = "\\.[/]{1,2}.*";
 
-    protected WebDriver driver = WebDriverManager.getInstance().getDriver();
+    protected WebDriver driver;
     protected WebElementX parentElement;
     protected By locator;
     protected String name;
 
-    public ElementsList(By locator, String name, WebElementX parentElement) {
+    public ElementsList(By locator, String name, WebElementX parentElement, WebDriver driver) {
         this.locator = locator;
         this.name = name != null ? name : locator.toString();
         this.parentElement = parentElement;
+        this.driver = driver;
     }
 
     public <T extends WebElementX> Object apply(Class<T> clazz, Function<T, Object> func) {
@@ -66,7 +67,7 @@ public class ElementsList<T extends WebElementX> {
         T object = null;
         try {
             Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class, WebDriver.class);
-            object = (T) ctor.newInstance(By.xpath(elementLocator), null, null);
+            object = (T) ctor.newInstance(By.xpath(elementLocator), null, null, this.driver);
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -79,7 +80,7 @@ public class ElementsList<T extends WebElementX> {
         T object = null;
         try {
             Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class, WebDriver.class);
-            object = (T) ctor.newInstance(By.xpath(elementLocator), null, parent);
+            object = (T) ctor.newInstance(By.xpath(elementLocator), null, parent, this.driver);
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -126,7 +127,7 @@ public class ElementsList<T extends WebElementX> {
             logger.debug("Getting element by text, " + newLocator);
             try {
                 Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class, WebDriver.class);
-                object = (T) ctor.newInstance(By.xpath(newLocator), null, null);
+                object = (T) ctor.newInstance(By.xpath(newLocator), null, null, this.driver);
             } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
                 e.printStackTrace();
             }
@@ -147,7 +148,7 @@ public class ElementsList<T extends WebElementX> {
             logger.debug("Getting element by text, " + newLocator);
             try {
                 Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class, WebDriver.class);
-                object = (T) ctor.newInstance(By.xpath(newLocator), null, parent);
+                object = (T) ctor.newInstance(By.xpath(newLocator), null, parent, this.driver);
             } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
                 e.printStackTrace();
             }
@@ -168,7 +169,7 @@ public class ElementsList<T extends WebElementX> {
             logger.debug("Getting element by text, " + newLocator);
             try {
                 Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class, WebDriver.class);
-                object = (T) ctor.newInstance(By.xpath(newLocator), null, null);
+                object = (T) ctor.newInstance(By.xpath(newLocator), null, null, this.driver);
             } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
                 e.printStackTrace();
             }
@@ -189,7 +190,7 @@ public class ElementsList<T extends WebElementX> {
             logger.debug("Getting element by text, " + newLocator);
             try {
                 Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class, WebDriver.class);
-                object = (T) ctor.newInstance(By.xpath(newLocator), null, parent);
+                object = (T) ctor.newInstance(By.xpath(newLocator), null, parent, this.driver);
             } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
                 e.printStackTrace();
             }

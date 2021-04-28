@@ -17,34 +17,37 @@ import java.util.concurrent.TimeUnit;
 public class WebElementX {
     final Logger logger = Logger.getLogger(WebElementX.class);
 
-    protected WebDriver driver = WebDriverManager.getInstance().getDriver();
+    protected WebDriver driver;
     protected WebElementX parentElement;
     protected By locator;
     protected String name;
     protected final long IMPLICIT_NO_TIMEOUT = 500;
     protected final long DEFAULT_TIMEOUT = FileReaderManager.getInstance().getConfigReader().getImplicitWait();
 
-    public WebElementX(By locator, String name, WebElementX parentElement) {
+    public WebElementX(By locator, String name, WebElementX parentElement, WebDriver driver) {
         this.locator = locator;
         this.name = name != null ? name : locator.toString();
         this.parentElement = parentElement;
+        this.driver = driver;
     }
 
-    public WebElementX(By locator, String name) {
+    public WebElementX(By locator, String name, WebDriver driver) {
         this.locator = locator;
         this.name = name != null ? name : locator.toString();
+        this.driver = driver;
     }
 
-    public WebElementX(By locator) {
+    public WebElementX(By locator, WebDriver driver) {
         this.locator = locator;
         this.name = locator.toString();
+        this.driver = driver;
     }
 
     public <T extends WebElementX> T elementOfType(By locator, String name, Class<T> clazz) {
         T object = null;
         try {
             Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class, WebDriver.class);
-            object = (T) ctor.newInstance(locator, name, this);
+            object = (T) ctor.newInstance(locator, name, this, driver);
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -57,11 +60,11 @@ public class WebElementX {
     }
 
     public WebElementX element(By locator) {
-        return new WebElementX(locator, null, this);
+        return new WebElementX(locator, null, this, this.driver);
     }
 
     public ElementsList<WebElementX> elements(By locator) {
-        return new ElementsList<WebElementX>(locator, null, this);
+        return new ElementsList<WebElementX>(locator, null, this, this.driver);
     }
 
     public List<WebElement> all(By locator) {

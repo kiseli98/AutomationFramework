@@ -1,19 +1,20 @@
 package support.page_objects.webelements;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import support.utils.Helpers;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class SimpleTable extends WebElementX {
-    public ElementsList<WebElementX> headerRepeater = new ElementsList<>(By.xpath(".//th"), null, this);
+    public ElementsList<WebElementX> headerRepeater = new ElementsList<>(By.xpath(".//th"), null, this, driver);
 
 
     public String rowLocator = ".//tbody/tr";
 
-    public SimpleTable(By locator, String name, WebElementX parentElement) {
-        super(locator, name != null ? name + " Table" : null, parentElement);
+    public SimpleTable(By locator, String name, WebElementX parentElement, WebDriver driver) {
+        super(locator, name != null ? name + " Table" : null, parentElement, driver);
     }
 
     /**
@@ -22,12 +23,12 @@ public class SimpleTable extends WebElementX {
      */
     public WebElementX getRow(int index) {
         String finalLocator = this.rowLocator + "[" + index + "]";
-        return new WebElementX(By.xpath(finalLocator), null, this);
+        return new WebElementX(By.xpath(finalLocator), null, this, driver);
     }
 
     public ElementsList<WebElementX> getRows() {
         String finalLocator = this.rowLocator;
-        return new ElementsList<>(By.xpath(finalLocator), null, this);
+        return new ElementsList<>(By.xpath(finalLocator), null, this, driver);
     }
 
     /**
