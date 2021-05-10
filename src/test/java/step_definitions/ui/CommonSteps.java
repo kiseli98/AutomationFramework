@@ -4,6 +4,8 @@ import io.cucumber.java8.En;
 import support.context.TestContext;
 import support.page_objects.pages.BasePage;
 import support.page_objects.pages.GooglePage;
+import support.page_objects.webelements.WebElementX;
+import support.utils.ElementResolver;
 
 public class CommonSteps implements En {
 
@@ -28,6 +30,13 @@ public class CommonSteps implements En {
             } else {
                 page.navigate();
             }
+        });
+
+        Then("^I see \"([^\"]*)\" component is displayed correctly$", (String elem) -> {
+            WebElementX el = ElementResolver.resolve(elem);
+            assert el != null;
+            el.waitTillIsVisible(30);
+            el.expectToBeDisplayed();
         });
 
     }

@@ -27,7 +27,6 @@ public class WebDriverManager {
     final Logger logger = Logger.getLogger(WebDriverManager.class);
     private WebDriver driver;
     private ConfigFileReader config = FileReaderManager.getInstance().getConfigReader();
-//    private static WebDriverManager instance = new WebDriverManager();
     private static DriverType driverType;
     private static EnvironmentType environmentType;
     private static final String CHROME_DRIVER_PROPERTY = "webdriver.chrome.driver";
@@ -36,25 +35,20 @@ public class WebDriverManager {
         driverType = config.getBrowser();
         environmentType = config.getEnvironment();
     }
-//
-//    public static WebDriverManager getInstance() {
-//        return instance;
-//    }
 
     public WebDriver getDriver() {
-        if(driver == null) driver = createDriver();
+        if (driver == null) driver = createDriver();
         return driver;
     }
 
     private WebDriver createDriver() {
         switch (environmentType) {
-            case LOCAL : driver = createLocalDriver();
+            case LOCAL:
+                driver = createLocalDriver();
                 break;
-            case REMOTE : driver = createRemoteDriver();
+            case REMOTE:
+                driver = createRemoteDriver();
                 break;
-        }
-        if(driverType != DriverType.ANDROID){
-            driver.manage().window().maximize();
         }
         driver.manage().timeouts().implicitlyWait(config.getImplicitWait(), TimeUnit.SECONDS);
         return driver;
@@ -62,65 +56,66 @@ public class WebDriverManager {
 
     private WebDriver createRemoteDriver() {
         MutableCapabilities capabilities;
-
         switch (driverType) {
-            case FIREFOX :
+            case FIREFOX:
                 throw new Error("Not yet implemented");
-            case CHROME :
-                capabilities = getChromeOptions();
+            case CHROME:
+                try {
+                    driver = new RemoteWebDriver(new URL(config.getProperty("gridAddress")), getChromeOptions());
+                } catch (MalformedURLException e) {
+                    logger.error("MalformedURLException: ", e);
+                }
+                driver.manage().window().maximize();
                 break;
-            case IE :
+            case IE:
                 throw new Error("Not yet implemented");
-            default:
-                capabilities = getChromeOptions();
-        }
-
-        try {
-            driver = new RemoteWebDriver(new URL(config.getProperty("gridAddress")), capabilities);
-        } catch (MalformedURLException e) {
-            logger.error("MalformedURLException: ", e);
         }
         return driver;
     }
+
 
     private WebDriver createLocalDriver() {
         switch (driverType) {
-            case FIREFOX : driver = new FirefoxDriver();
+            case FIREFOX:
+                driver = new FirefoxDriver();
+                driver.manage().window().maximize();
                 break;
-            case CHROME :
+            case CHROME:
                 System.setProperty(CHROME_DRIVER_PROPERTY, config.getDriverPath());
                 driver = new ChromeDriver(getChromeOptions());
+                driver.manage().window().maximize();
                 break;
             case ANDROID:
-
-//                TODO for refactoring
                 try {
-                    DesiredCapabilities caps = new DesiredCapabilities();
-
-                    caps.setCapability(MobileCapabilityType.PLATFORM_NAME, Platform.ANDROID);
-                    caps.setCapability(MobileCapabilityType.PLATFORM_VERSION, "10");
-                    caps.setCapability(MobileCapabilityType.DEVICE_NAME, "ONEPLUS A6003");
-                    caps.setCapability(MobileCapabilityType.UDID, "b43d527e");
-                    caps.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 60);
-//        caps.setCapability(MobileCapabilityType.APP, "");  //for native
-                    caps.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");  //for web/hybrid
-
-                    URL url = new URL("http://127.0.0.1:4723/wd/hub");
-                    AppiumDriver<MobileElement> driver = new AppiumDriver<MobileElement>(url, caps);
-                    return driver;
+                    return new AppiumDriver<>(new URL(config.getProperty("appiumAddress")), getAndroidCapabilities());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-            case IE : driver = new InternetExplorerDriver();
+            case IE:
+                driver = new InternetExplorerDriver();
+                driver.manage().window().maximize();
                 break;
         }
         return driver;
     }
 
+    private DesiredCapabilities getAndroidCapabilities() {
+        DesiredCapabilities caps = new DesiredCapabilities();
+        caps.setCapability(MobileCapabilityType.PLATFORM_NAME, Platform.ANDROID);
+        caps.setCapability(MobileCapabilityType.PLATFORM_VERSION, "10");
+        caps.setCapability(MobileCapabilityType.DEVICE_NAME, "ONEPLUS A6003");
+        caps.setCapability(MobileCapabilityType.UDID, "b43d527e");
+        caps.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 60);
+//        caps.setCapability(MobileCapabilityType.APP, "");  //for native
+        caps.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");  //for web/hybrid
+
+        return caps;
+    }
+
+
     private ChromeOptions getChromeOptions() {
         ChromeOptions options = new ChromeOptions();
-        options.setCapability(CapabilityType.PLATFORM, Platform.WINDOWS);
+        options.setCapability(CapabilityType.PLATFORM_NAME, Platform.WINDOWS);
         options.addArguments("--lang=en-GB");
         options.addArguments("--incognito");
 

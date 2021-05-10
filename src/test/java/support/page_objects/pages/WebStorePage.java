@@ -8,7 +8,7 @@ import support.page_objects.components.web_store.MyAccountComponent;
 import support.page_objects.components.web_store.OrderHistoryComponent;
 
 public class WebStorePage extends ContentPage {
-//    public static WebStorePage instance = new WebStorePage("WebStorePage");
+    public static WebStorePage instance;
     String url = this.buildUrl("http://automationpractice.com/");
 
     public AuthenticationComponent authenticationComponent;
@@ -19,6 +19,7 @@ public class WebStorePage extends ContentPage {
 
     public WebStorePage(String name, WebDriver driver) {
         super(name, driver);
+        instance = this;
         this.header = new Header(By.xpath(".//nav"), "Header", driver);
         this.authenticationComponent = new AuthenticationComponent(By.xpath(".//form[@id=\"login_form\"]"), "Auth", driver);
         this.myAccountComponent = new MyAccountComponent(By.xpath(".//div[@id=\"center_column\" and .//h1[.=\"My account\"]]"), "My account", driver);

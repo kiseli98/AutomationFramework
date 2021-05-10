@@ -8,6 +8,7 @@ import support.page_objects.webelements.TextInput;
 
 public class AuthenticationComponent extends BaseComponent {
 //    public static AuthenticationComponent instance = new AuthenticationComponent(By.xpath(".//form[@id=\"login_form\"]"), "Auth");
+    public AuthenticationComponent instance = this;
 
     public TextInput emailInput;
     public TextInput passwordInput;

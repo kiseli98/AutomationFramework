@@ -8,7 +8,7 @@ Feature: UI - Creation and execution of automated tests on a live web applicatio
       | Username        | Password |
       | admin@admin.com | admin    |
     And I open order history
-    Then I see order history table is displayed
+    Then I see "WebStorePage > orderHistoryComponent" component is displayed correctly
 
 
   @priority:3

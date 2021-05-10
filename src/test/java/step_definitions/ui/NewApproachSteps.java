@@ -20,7 +20,7 @@ public class NewApproachSteps implements En {
         });
 
         When("^I login with the following credentials$", (DataTable dataTable) -> {
-            Map<String,String> rowData = dataTable.asMaps().get(0);
+            Map<String, String> rowData = dataTable.asMaps().get(0);
             webStorePage.header.signInButton.click();
             webStorePage.authenticationComponent.waitTillIsVisible(10);
             webStorePage.authenticationComponent.authenticate(rowData.get("Username"), rowData.get("Password"));
