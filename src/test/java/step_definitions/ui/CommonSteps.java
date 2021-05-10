@@ -32,9 +32,8 @@ public class CommonSteps implements En {
             }
         });
 
-        Then("^I see \"([^\"]*)\" component is displayed correctly$", (String elem) -> {
-            WebElementX el = ElementResolver.resolve(elem);
-            assert el != null;
+        Then("^I see \"([^\"]*)\" (component|element) (is|are) displayed correctly$", (String elem, String par1, String par2) -> {
+            WebElementX el = ElementResolver.resolveWithDriver(elem, googlePage.driver);
             el.waitTillIsVisible(30);
             el.expectToBeDisplayed();
         });

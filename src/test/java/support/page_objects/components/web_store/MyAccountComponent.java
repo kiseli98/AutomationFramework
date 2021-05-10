@@ -7,7 +7,7 @@ import support.page_objects.webelements.BaseComponent;
 import support.page_objects.webelements.Button;
 
 public class MyAccountComponent extends BaseComponent {
-//    public static MyAccountComponent instance = new MyAccountComponent(By.xpath(".//div[@id=\"center_column\" and .//h1[.=\"My account\"]]"), "My account");
+    public static MyAccountComponent instance;
 
     public Button ordersBtn;
     public Button creditBtn;
@@ -18,6 +18,8 @@ public class MyAccountComponent extends BaseComponent {
 
     public MyAccountComponent(By locator, String name, WebDriver driver) {
         super(locator, name, driver);
+        instance = this;
+
         this.ordersBtn = new Button(By.xpath(".//a[@title=\"Orders\"]"), "Orders", this, driver);
         this.creditBtn = new Button(By.xpath(".//a[@title=\"Credit slips\"]"), "Credit", this, driver);
         this.addressesBtn = new Button(By.xpath(".//a[@title=\"Addresses\"]"), "Addresses", this, driver);

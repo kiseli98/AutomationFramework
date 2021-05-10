@@ -9,4 +9,8 @@ public class BaseComponent extends WebElementX {
         super(locator, name + " component", driver);
     }
 
+    public BaseComponent(By locator, String name) {
+        super(locator, name + " component");
+    }
+
 }

@@ -43,6 +43,12 @@ public class WebElementX {
         this.driver = driver;
     }
 
+    public WebElementX(By locator, String name) {
+        logger.warn("DRIVER IS NOT SET");
+        this.locator = locator;
+        this.name = name;
+    }
+
     public <T extends WebElementX> T elementOfType(By locator, String name, Class<T> clazz) {
         T object = null;
         try {
@@ -79,15 +85,18 @@ public class WebElementX {
         return driver;
     }
 
+    public void setDriver(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void click() {
-        logger.info("Clicking:: " + this.name);
+        logger.info("Clicking:: [" + this.name + "]");
         this.getRawElement().click();
     }
 
     public void hover() {
         if (this.isDisplayed()) {
-            logger.info("Hovering:: " + this.name);
+            logger.info("Hovering:: [" + this.name + "]");
             new Actions(this.driver).moveToElement(this.getRawElement()).perform();
         } else {
             throw new Error("Cannot hover invisible element");
@@ -96,7 +105,7 @@ public class WebElementX {
 
     public void hover(WebElementX el) {
         if (this.isDisplayed()) {
-            logger.info("Hovering:: " + this.name);
+            logger.info("Hovering:: [" + this.name  + "]");
             new Actions(this.driver).moveToElement(el.getRawElement()).moveToElement(this.getRawElement()).perform();
         } else {
             throw new Error("Cannot hover invisible element");
@@ -104,22 +113,22 @@ public class WebElementX {
     }
 
     public void doubleClick() {
-        logger.info("Double clicking:: " + this.name);
+        logger.info("Double clicking:: [" + this.name + "]");
         new Actions(this.driver).doubleClick(this.getRawElement()).perform();
     }
 
     public void rightClick() {
-        logger.info("Right clicking:: " + this.name);
+        logger.info("Right clicking:: [" + this.name + "]");
         new Actions(this.driver).contextClick(this.getRawElement()).perform();
     }
 
     public void moveMouseAndClick() {
-        logger.info("Double clicking:: " + this.name);
+        logger.info("Double clicking:: [" + this.name + "]");
         new Actions(this.driver).moveToElement(this.getRawElement()).click().perform();
     }
 
     public String getText() {
-        logger.info("Getting text:: " + this.name);
+        logger.info("Getting text from:: [" + this.name + "]");
         return this.getRawElement().getText();
     }
 
@@ -129,37 +138,37 @@ public class WebElementX {
     }
 
     public boolean isDisplayed() {
-        logger.info("Is Displayed:: " + this.name);
+        logger.info("Is Displayed:: [" + this.name + "]");
         return this.getRawElement().isDisplayed();
     }
 
     public boolean isEnabled() {
-        logger.info("Checking if Enabled:: " + this.name);
+        logger.info("Checking if Enabled:: [" + this.name + "]");
         return this.getRawElement().isEnabled();
     }
 
     public boolean isPresent() {
-        logger.info("Is Present:: " + this.name);
+        logger.info("Is Present:: [" + this.name + "]");
         return this.driver.findElements(this.locator).size() > 0;
     }
 
     public boolean isNotPresent() {
-        logger.info("Is Present:: " + this.name);
+        logger.info("Is Present:: [" + this.name + "]");
         return this.driver.findElements(this.locator).size() == 0;
     }
 
     public void sendKeys(String text) {
-        logger.info("Sending keys to:: " + this.name);
+        logger.info("Sending keys to:: [" + this.name + "]");
         this.getRawElement().sendKeys(text);
     }
 
     public void sendKeys(Keys key) {
-        logger.info("Sending keys to:: " + this.name);
+        logger.info("Sending keys to:: [" + this.name + "]");
         this.getRawElement().sendKeys(key);
     }
 
     public void browserClick() {
-        logger.info("Browser click:: " + this.name);
+        logger.info("Browser click:: [" + this.name + "]");
         ((JavascriptExecutor) driver).executeScript("arguments[0].click()", this.getRawElement());
     }
 
@@ -176,7 +185,7 @@ public class WebElementX {
     }
 
     public void scrollTo() {
-        logger.info("Scrolling to:: " + this.name);
+        logger.info("Scrolling to:: [" + this.name + "]");
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView()", this.getRawElement());
     }
 
