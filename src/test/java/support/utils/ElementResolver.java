@@ -2,6 +2,7 @@ package support.utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import support.page_objects.pages.BasePage;
 import support.page_objects.webelements.WebElementX;
 
 import java.lang.reflect.Constructor;
@@ -33,10 +34,30 @@ public class ElementResolver {
     }
 
     public static WebElementX resolveWithDriver(String path, WebDriver driver) {
-        WebElementX obj = resolve(path);
-        assert obj != null;
-        obj.setDriver(driver);
-        return obj;
+        Object parent = null;
+        WebElementX child = null;
+        try {
+            List<String> a = Arrays.stream(path.split(">")).map(String::trim).collect(Collectors.toList());
+            Class<?> clazz = Class.forName("support.page_objects.pages." + a.get(0));
+            Field field;
+            for (String elem : a.subList(1, a.size() - 1)) {
+                field = clazz.getDeclaredField(elem);
+                clazz = field.getType();
+            }
+            field = clazz.getDeclaredField(a.get(a.size() - 1));
+            parent = clazz.getDeclaredField("instance").get(null);
+            if (parent instanceof WebElementX) {
+                ((WebElementX) parent).setDriver(driver);
+            }
+            if (parent instanceof BasePage) {
+                ((BasePage) parent).setDriver(driver);
+            }
+            child = (WebElementX) field.get(parent);
+            child.setDriver(driver);
+        } catch (NoSuchFieldException | ClassNotFoundException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return child;
     }
 
     public static void main(String[] args) {
@@ -44,8 +65,6 @@ public class ElementResolver {
         System.out.println(name);
 
     }
-
-
 
 
 }

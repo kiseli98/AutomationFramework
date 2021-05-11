@@ -9,7 +9,7 @@ public abstract class BasePage {
     final Logger logger = Logger.getLogger(BasePage.class);
     public String baseUrl = "";
     public String name;
-    public WebDriver driver;
+    WebDriver driver;
 
     public BasePage(String name, WebDriver driver){
         this.name = name;
@@ -30,6 +30,14 @@ public abstract class BasePage {
     public void open(String url){
         logger.info("Navigate to:: " + url);
         this.driver.get(url);
+    }
+
+    public void setDriver(WebDriver driver){
+        this.driver = driver;
+    }
+
+    public WebDriver getDriver() {
+        return driver;
     }
 
     public String getTitle() {

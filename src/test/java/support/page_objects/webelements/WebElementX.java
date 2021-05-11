@@ -11,6 +11,7 @@ import support.managers.WebDriverManager;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +19,7 @@ public class WebElementX {
     final Logger logger = Logger.getLogger(WebElementX.class);
 
     protected WebDriver driver;
+    protected ArrayList<WebElementX> innerElements = new ArrayList<>();
     protected WebElementX parentElement;
     protected By locator;
     protected String name;
@@ -87,6 +89,12 @@ public class WebElementX {
 
     public void setDriver(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public void setDriverForInnerElements(WebDriver driver) {
+        this.innerElements.forEach( el ->{
+            el.setDriver(driver);
+        });
     }
 
     public void click() {
@@ -181,6 +189,11 @@ public class WebElementX {
     }
 
     public void expectToBeDisplayed() {
+        Assert.assertTrue(this.name + " is not visible", this.getRawElement().isDisplayed());
+    }
+
+    public void expectToBeDisplayedWithDriver(WebDriver driver) {
+        this.setDriver(driver);
         Assert.assertTrue(this.name + " is not visible", this.getRawElement().isDisplayed());
     }
 
