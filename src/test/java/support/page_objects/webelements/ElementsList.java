@@ -1,20 +1,15 @@
 package support.page_objects.webelements;
 
-import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import support.managers.WebDriverManager;
 import support.utils.Helpers;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -24,7 +19,7 @@ public class ElementsList<T extends WebElementX> {
     protected static final String xpathPattern = "\\.[/]{1,2}.*";
 
     protected WebDriver driver;
-    protected WebElementX parentElement;
+    protected WebElementX parentElement = null;
     protected By locator;
     protected String name;
 
@@ -32,6 +27,12 @@ public class ElementsList<T extends WebElementX> {
         this.locator = locator;
         this.name = name != null ? name : locator.toString();
         this.parentElement = parentElement;
+        this.driver = driver;
+    }
+
+    public ElementsList(By locator, String name, WebDriver driver) {
+        this.locator = locator;
+        this.name = name != null ? name : locator.toString();
         this.driver = driver;
     }
 

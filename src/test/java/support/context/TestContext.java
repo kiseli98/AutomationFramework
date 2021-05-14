@@ -25,5 +25,4 @@ public class TestContext {
     public ScenarioContext getScenarioContext() {
         return scenarioContext;
     }
-
 }

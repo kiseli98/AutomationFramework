@@ -7,7 +7,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import support.managers.FileReaderManager;
-import support.managers.WebDriverManager;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -133,6 +132,16 @@ public class WebElementX {
     public void moveMouseAndClick() {
         logger.info("Double clicking:: [" + this.name + "]");
         new Actions(this.driver).moveToElement(this.getRawElement()).click().perform();
+    }
+
+    public void clickAndHold() {
+        logger.info("Clicking and holding:: [" + this.name + "]");
+        new Actions(this.driver).clickAndHold(this.getRawElement()).perform();
+    }
+
+    public void dragAndDrop(WebElementX target) {
+        logger.info("Dragging [" + this.name + "] into [" + target.name + "]");
+        new Actions(this.driver).dragAndDrop(this.getRawElement(), target.getRawElement()).perform();
     }
 
     public String getText() {

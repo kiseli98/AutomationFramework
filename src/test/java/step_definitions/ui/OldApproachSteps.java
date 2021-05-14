@@ -10,9 +10,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import support.context.TestContext;
+import support.page_objects.webelements.ElementsList;
+import support.page_objects.webelements.PlainDropDown;
+import support.page_objects.webelements.WebElementX;
 
 import java.time.Duration;
 import java.util.Map;
@@ -100,4 +104,6 @@ public class OldApproachSteps {
                 By.cssSelector("#order-list")));
         Assert.assertTrue("Order history table is not visible", orderHistoryTable.isDisplayed());
     }
+
+
 }

@@ -54,7 +54,7 @@ public class ConfigFileReader {
         else throw new RuntimeException("[" + key + "] not specified in the " + propertyFilePath + " file.");
     }
 
-    public String getDriverPath() {
+    public String getDriverDir() {
         String driverPath = properties.getProperty("driverPath");
         if (driverPath != null) return driverPath;
         else throw new RuntimeException("driverPath not specified in the Configuration file.");
@@ -80,6 +80,31 @@ public class ConfigFileReader {
         else if (browserName.equals("ie")) return DriverType.IE;
         else
             throw new RuntimeException("Browser Name Key value in Configuration.properties is not matched : " + browserName);
+    }
+
+    public DriverType getBrowserFromParams() {
+        String target = String.valueOf(System.getProperty("target"));
+
+        if (target.equalsIgnoreCase("chrome")) return DriverType.CHROME;
+        else if (target.equalsIgnoreCase("firefox")) return DriverType.FIREFOX;
+        else if (target.equalsIgnoreCase("android")) return DriverType.ANDROID;
+        else if (target.equalsIgnoreCase("ie")) return DriverType.IE;
+        else return null;
+    }
+
+    public EnvironmentType getEnvFromParams() {
+        String environmentName = String.valueOf(System.getProperty("env"));
+        if (environmentName.equalsIgnoreCase("local")) return EnvironmentType.LOCAL;
+        else if (environmentName.equalsIgnoreCase("remote")) return EnvironmentType.REMOTE;
+        else return null;
+    }
+
+    public String getSeleniumAddressFromParams() {
+        return String.valueOf(System.getProperty("seleniumAddress"));
+    }
+
+    public String getAppiumAddressFromParams() {
+        return String.valueOf(System.getProperty("appiumAddress"));
     }
 
     public EnvironmentType getEnvironment() {

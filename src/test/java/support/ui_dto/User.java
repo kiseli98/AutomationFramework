@@ -12,13 +12,11 @@ import java.util.Map;
 public class User {
     private String username;
     private String password;
-    private String email;
 
     public User (DataTable table) {
         Map<String,String> rowData = table.asMaps().get(0);
 
         this.username = rowData.get("Username");
-        this.email = rowData.get("Email");
         this.password = rowData.get("Password");
     }
 
@@ -27,7 +25,6 @@ public class User {
         User user = new User();
         user.setUsername("Username");
         user.setPassword("Password");
-        user.setEmail("Email");
         return user;
     }
 

@@ -7,9 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import support.managers.WebDriverManager;
 import support.page_objects.pages.WebStorePage;
-import support.page_objects.webelements.ElementsList;
-import support.page_objects.webelements.SimpleTable;
-import support.page_objects.webelements.WebElementX;
+import support.page_objects.webelements.*;
 import support.utils.Helpers;
 
 import java.util.Arrays;
@@ -94,68 +92,15 @@ public class WebDriverActions {
 
     public void main(String[] args) {
 
-//        WebDriver driver = driver;
-//        driver.get("http://demo.guru99.com/test/web-table-element.php");
-//        SimpleTable table = new SimpleTable(By.xpath(".//table"), null, null);
-//
-//        System.out.println(table.getRows().getText());
-//        System.out.println(table.getRow(1).getText());
-//        System.out.println(table.getRow(2).getText());
-//        System.out.println(table.getColumnByField("Company").stream().map(WebElementX::getText).collect(Collectors.toList()));
-//        System.out.println(table.getColumnByField("Group").stream().map(WebElementX::getText).collect(Collectors.toList()));
-//        System.out.println(table.getCellByField("Company", 1).getText());
-//        System.out.println(table.getCellByField("Company", 2).getText());
-//        System.out.println(table.getCellByField("Group", 1).getText());
-//        System.out.println(table.getCellByField("Group", 2).getText());
-//
-//
-//
-//        driver.close();
-//        driver.quit();
-
-//        driver.findElement(By.xpath("//*[contains(@href,'popup.php')]")).click();
+//        Button newTabButton = new Button(By.id("newTabBtn"), "Button that will open new tab", null, driver);
+//        TextInput email = new TextInput(By.xpath("//input"), "Email input", null, driver);
+//        Button login = new Button(By.id("loginBtn"), "Login button", null, driver);
 //
 //        WebDriverActions.switchToChildWindow();
-//
-//        driver.findElement(By.name("emailid"))
-//                .sendKeys("12331@gmail.com");
-//
-//        driver.findElement(By.name("btnLogin")).click();
-//
+//        email.sendKeys("test@email.com");
+//        login.click();
 //        WebDriverActions.closeAndSwitchToParentWindow();
 //
-//
-////////////////////////////////////////////////////////////////////////////////////
-//
-//        String oldLocator = "asdasd .//div[@class=\"123\"]";
-//        String pattern = "\\.[/]{1,2}.*";
-//        String newLocator = Helpers.getRegexMatch(oldLocator, pattern, 0);
-//        System.out.println(newLocator);
-//        newLocator = newLocator.replaceAll("]$", " and .//*[normalize-space()=\"" + "123" + "\"]]")
-//                + " | "
-//                + newLocator.replaceAll("]$", " and contains(,.\"" + "123" + "\")]");
-//        System.out.println(newLocator);
-//        System.out.println(By.xpath(".//div[@class=\"123\"]").toString().split(": ")[1]);
-//
-//
-//        List<Boolean> listt = Arrays.asList(false, false, false);
-//        System.out.println(listt.contains(true));
-//
-//
-//        int i = 9;
-//        System.out.println("[" + ++i + "]");
-//
-////        public <T> Object applyTest(int in, T obj, Function<T, Object> func) {
-////            return Helpers.range(in).stream().map(i -> func.apply(obj));
-////        }
-//
-//        int a = 5;
-//        String str = "hello";
-//        System.out.println("-----");
-//
-//        System.out.println(ElementsList.applyTest(a, str, (s) -> {
-//            return s.length();
-//        }));
 
     }
 }

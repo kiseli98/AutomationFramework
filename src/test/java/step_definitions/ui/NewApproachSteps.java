@@ -2,9 +2,13 @@ package step_definitions.ui;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java8.En;
+import org.openqa.selenium.WebDriver;
+import support.context.ScenarioContext;
 import support.context.TestContext;
+import support.managers.PageObjectManager;
 import support.page_objects.pages.WebStorePage;
 import support.page_objects.webelements.Button;
+import support.ui_dto.User;
 
 import java.util.Map;
 
@@ -12,7 +16,12 @@ public class NewApproachSteps implements En {
 
     public NewApproachSteps(TestContext context) {
 
-        WebStorePage webStorePage = context.getPageObjectManager().getWebStorePage();
+        WebDriver driver = context.getWebDriverManager().getDriver();
+        PageObjectManager pageObjectManager = context.getPageObjectManager();
+        ScenarioContext scenarioContext = context.getScenarioContext();
+
+        WebStorePage webStorePage = pageObjectManager.getWebStorePage();
+
 
         Given("^I am on the store page$", () -> {
             webStorePage.navigate();
@@ -20,10 +29,10 @@ public class NewApproachSteps implements En {
         });
 
         When("^I login with the following credentials$", (DataTable dataTable) -> {
-            Map<String, String> rowData = dataTable.asMaps().get(0);
+            User user = new User(dataTable);
             webStorePage.header.signInButton.click();
             webStorePage.authenticationComponent.waitTillIsVisible(10);
-            webStorePage.authenticationComponent.authenticate(rowData.get("Username"), rowData.get("Password"));
+            webStorePage.authenticationComponent.authenticate(user.getUsername(), user.getPassword());
             webStorePage.authenticationComponent.waitTillIsGone(10);
         });
 
