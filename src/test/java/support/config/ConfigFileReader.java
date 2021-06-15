@@ -100,7 +100,7 @@ public class ConfigFileReader {
     }
 
     public String getSeleniumAddressFromParams() {
-        return String.valueOf(System.getProperty("seleniumAddress"));
+        return System.getProperty("seleniumAddress");
     }
 
     public String getAppiumAddressFromParams() {

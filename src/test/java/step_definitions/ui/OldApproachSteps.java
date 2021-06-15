@@ -61,7 +61,8 @@ public class OldApproachSteps {
         signInButton.click();
 
         System.out.println("Waiting till authenticationComponent is visible");
-        WebElement auth = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#login_form")));
+        WebElement auth = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#login_form")));
 
         WebElement login = driver.findElement(By.cssSelector("#email"));
         WebElement password = driver.findElement(By.cssSelector("#passwd"));

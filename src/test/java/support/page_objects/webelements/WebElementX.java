@@ -231,7 +231,7 @@ public class WebElementX {
     }
 
     //TODO handle exception NoSuchElementException (WebDriverWait handles it?). Ret false in this case
-//TODO test not.invisibilityOf solution
+    //TODO test not.invisibilityOf solution
     public boolean waitTillIsVisible(long timeoutInSeconds) {
         boolean isVisible = false;
         logger.info("Waiting till element [" + this.name + "] is visible");

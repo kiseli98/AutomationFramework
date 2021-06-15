@@ -19,3 +19,19 @@ Feature: UI - Creation and execution of automated tests on a live web applicatio
       | admin@admin.com | admin    |
     And I open order history - old
     Then I see order history table is displayed -old
+
+
+
+
+
+
+
+
+  Scenario: As a user, I want to check order history reference
+    Given I am on the store page
+    When I login with the following credentials
+      | Username        | Password |
+      | admin@admin.com | admin    |
+    And I open order history
+    And I see "WebStorePage > orderHistoryComponent" component is displayed correctly
+    Then I see "Order reference" from row "1" equals "UPKDZQBPG"

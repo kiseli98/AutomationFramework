@@ -2,6 +2,7 @@ package step_definitions.ui;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java8.En;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import support.context.ScenarioContext;
 import support.context.TestContext;

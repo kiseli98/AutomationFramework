@@ -13,7 +13,6 @@ public class AuthenticationComponent extends BaseComponent {
     public TextInput passwordInput;
     public Button signInButton;
 
-
     public AuthenticationComponent(By locator, String name, WebDriver driver) {
         super(locator, name, driver);
         instance = this;

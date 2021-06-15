@@ -64,6 +64,7 @@ public class WebDriverManager {
         } catch (MalformedURLException e) {
             logger.error("MalformedURLException: ", e);
         }
+        logger.info("Starting Selenium remotely at: " + seleniumUrl);
 
         switch (driverType) {
             case FIREFOX:
@@ -82,6 +83,7 @@ public class WebDriverManager {
 
 
     private WebDriver createLocalDriver() {
+        logger.info("Starting Selenium locally locally...");
         switch (driverType) {
             case FIREFOX:
                 System.setProperty(GECKO_DRIVER_PROPERTY, config.getDriverDir() + "geckodriver.exe");
@@ -97,6 +99,7 @@ public class WebDriverManager {
                 break;
             case ANDROID:
                 try {
+                    logger.info("Using Appium at: " + config.getProperty("appiumAddress"));
                     return new AppiumDriver<>(new URL(config.getProperty("appiumAddress")), getAndroidCapabilities());
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -129,7 +132,7 @@ public class WebDriverManager {
         ChromeOptions options = new ChromeOptions();
         options.setCapability(CapabilityType.PLATFORM_NAME, Platform.WINDOWS);
         options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-        options.setCapability(CapabilityType.BROWSER_VERSION, "latest");
+//        options.setCapability(CapabilityType.BROWSER_VERSION, "latest");
         options.addArguments("--lang=en-GB");
         options.addArguments("--incognito");
         return options;

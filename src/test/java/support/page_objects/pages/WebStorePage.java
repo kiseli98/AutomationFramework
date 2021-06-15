@@ -20,8 +20,10 @@ public class WebStorePage extends ContentPage {
         super(name, driver);
         instance = this;
         this.header = new Header(By.xpath(".//nav"), "Header", driver);
-        this.authenticationComponent = new AuthenticationComponent(By.xpath(".//form[@id=\"login_form\"]"), "Auth", driver);
-        this.myAccountComponent = new MyAccountComponent(By.xpath(".//div[@id=\"center_column\" and .//h1[.=\"My account\"]]"), "My account", driver);
+        this.authenticationComponent =
+                new AuthenticationComponent(By.xpath(".//form[@id=\"login_form\"]"), "Auth", driver);
+        this.myAccountComponent =
+                new MyAccountComponent(By.xpath(".//div[@id=\"center_column\" and .//h1[.=\"My account\"]]"), "My account", driver);
         this.orderHistoryComponent =
                 new OrderHistoryComponent(By.xpath(".//div[@id=\"center_column\" and .//h1[.=\"Order history\"]]"), "Order History", driver);
     }
