@@ -21,7 +21,7 @@ public class NewApproachSteps implements En {
         PageObjectManager pageObjectManager = context.getPageObjectManager();
         ScenarioContext scenarioContext = context.getScenarioContext();
 
-        WebStorePage webStorePage = pageObjectManager.getWebStorePage();
+        WebStorePage webStorePage = (WebStorePage) pageObjectManager.get("WebStorePage");
 
 
         Given("^I am on the store page$", () -> {
@@ -58,6 +58,12 @@ public class NewApproachSteps implements En {
         Then("^I see order history table is displayed$", () -> {
             webStorePage.orderHistoryComponent.waitTillIsVisible(10);
             webStorePage.orderHistoryComponent.expectToBeDisplayed();
+        });
+
+
+        Then("^I see \"([^\"]*)\" from row \"([^\"]*)\" equals \"([^\"]*)\"$", (String col, String row, String expectedVal) -> {
+            String actualVal = webStorePage.orderHistoryComponent.ordersTable.getCellByField(col, Integer.parseInt(row)).getText();
+            Assert.assertEquals("Values are different", actualVal, expectedVal);
         });
 
 

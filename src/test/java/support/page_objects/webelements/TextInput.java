@@ -1,6 +1,7 @@
 package support.page_objects.webelements;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 public class TextInput extends WebElementX {
@@ -19,5 +20,11 @@ public class TextInput extends WebElementX {
 
     public void clear() {
         this.getRawElement().clear();
+    }
+
+    public void clearWithKeys() {
+        this.getRawElement().click();
+        this.getRawElement().sendKeys(Keys.CONTROL+"A");
+        this.getRawElement().sendKeys(Keys.BACK_SPACE);
     }
 }

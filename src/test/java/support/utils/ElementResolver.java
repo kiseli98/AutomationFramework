@@ -34,7 +34,7 @@ public class ElementResolver {
     }
 
     public static WebElementX resolveWithDriver(String path, WebDriver driver) {
-        Object parent = null;
+        Object parent;
         WebElementX child = null;
         try {
             List<String> a = Arrays.stream(path.split(">")).map(String::trim).collect(Collectors.toList());
@@ -54,6 +54,7 @@ public class ElementResolver {
             }
             child = (WebElementX) field.get(parent);
             child.setDriver(driver);
+            child.setDriverForInnerElements(driver);
         } catch (NoSuchFieldException | ClassNotFoundException | IllegalAccessException e) {
             e.printStackTrace();
         }

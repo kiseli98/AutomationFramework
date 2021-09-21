@@ -16,13 +16,14 @@ public class OrderHistoryComponent extends BaseComponent {
         super(locator, name, driver);
         instance = this;
         this.ordersTable = new SimpleTable(By.xpath(".//table[@id=\"order-list\"]"), "Orders table", this, driver);
+
         this.innerElements.add(ordersTable);
     }
 
     @Override
     public void expectToBeDisplayed() {
         super.expectToBeDisplayed();
-        this.setDriverForInnerElements(this.getDriver());
+//        this.setDriverForInnerElements(this.getDriver());
 
         this.ordersTable.waitTillIsVisible(10);
         this.ordersTable.expectToBeDisplayed();

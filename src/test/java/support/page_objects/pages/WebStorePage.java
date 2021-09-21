@@ -7,6 +7,7 @@ import support.page_objects.components.web_store.Header;
 import support.page_objects.components.web_store.MyAccountComponent;
 import support.page_objects.components.web_store.OrderHistoryComponent;
 
+@Page
 public class WebStorePage extends ContentPage {
     public static WebStorePage instance;
     String url = this.buildUrl("http://automationpractice.com/");

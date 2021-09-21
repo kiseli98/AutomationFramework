@@ -11,6 +11,7 @@ import support.page_objects.webelements.WebElementX;
 
 import java.util.List;
 
+@Page
 public class GooglePage extends ContentPage {
     String url = this.buildUrl("https://google.com/");
 //    public static GooglePage instance = new GooglePage("GooglePage");

@@ -13,8 +13,8 @@ public class CommonSteps implements En {
 
     public CommonSteps(TestContext context) {
 
-        GooglePage googlePage = context.getPageObjectManager().getGooglePage();
-        WebStorePage webStorePage = context.getPageObjectManager().getWebStorePage();
+        GooglePage googlePage = (GooglePage) context.getPageObjectManager().get("GooglePage");
+        WebStorePage webStorePage = (WebStorePage) context.getPageObjectManager().get("WebStorePage");
         WebDriver driverRef = context.getWebDriverManager().getDriver();
 
         Given("I navigate to google page test", () -> {

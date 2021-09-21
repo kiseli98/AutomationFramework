@@ -22,7 +22,7 @@ public class GoogleSteps {
 
     public GoogleSteps(TestContext context) {
         this.testContext = context;
-        googlePage = testContext.getPageObjectManager().getGooglePage();
+        googlePage = (GooglePage) testContext.getPageObjectManager().get("GooglePage");
 
     }
 
