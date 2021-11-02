@@ -83,7 +83,7 @@ public class WebDriverManager {
 
 
     private WebDriver createLocalDriver() {
-        logger.info("Starting Selenium locally locally...");
+        logger.info("Starting Selenium locally...");
         switch (driverType) {
             case FIREFOX:
                 System.setProperty(GECKO_DRIVER_PROPERTY, config.getDriverDir() + "geckodriver.exe");

@@ -1,24 +1,14 @@
 package support.page_objects.webelements.actions;
 
 import org.apache.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import support.managers.WebDriverManager;
-import support.page_objects.pages.WebStorePage;
-import support.page_objects.webelements.*;
-import support.utils.Helpers;
 
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class WebDriverActions {
     final Logger logger = Logger.getLogger(WebDriverActions.class);
-    private String MainWindow = null;
+    private String mainWindow = null;
     private WebDriver driver;
     
     public WebDriverActions(WebDriver driver) {
@@ -51,8 +41,8 @@ public class WebDriverActions {
     }
 
     public void setMainWindow() {
-        MainWindow = driver.getWindowHandle();
-        logger.info("Main Window is set to " + MainWindow);
+        mainWindow = driver.getWindowHandle();
+        logger.info("Main Window is set to " + mainWindow);
     }
 
     public void switchToChildWindow() {
@@ -62,9 +52,9 @@ public class WebDriverActions {
         Iterator<String> i1 = s1.iterator();
 
         while (i1.hasNext()) {
-            String ChildWindow = i1.next();
-            if (!MainWindow.equalsIgnoreCase(ChildWindow)) {
-                driver.switchTo().window(ChildWindow);
+            String childWindow = i1.next();
+            if (!mainWindow.equalsIgnoreCase(childWindow)) {
+                driver.switchTo().window(childWindow);
             }
         }
     }
@@ -75,10 +65,10 @@ public class WebDriverActions {
     }
 
     public void switchToMainWindow() {
-        logger.info("Switching to Main Window - " + MainWindow);
+        logger.info("Switching to Main Window - " + mainWindow);
 
-        if (MainWindow != null) {
-            driver.switchTo().window(MainWindow);
+        if (mainWindow != null) {
+            driver.switchTo().window(mainWindow);
         } else {
             throw new Error("Main window is not set");
         }

@@ -233,18 +233,17 @@ public class WebElementX {
     //TODO handle exception NoSuchElementException (WebDriverWait handles it?). Ret false in this case
     //TODO test not.invisibilityOf solution
     public boolean waitTillIsVisible(long timeoutInSeconds) {
-        boolean isVisible = false;
         logger.info("Waiting till element [" + this.name + "] is visible");
         WebDriverWait wait = new WebDriverWait(this.driver, timeoutInSeconds);
         WebElement el = wait.until(ExpectedConditions.visibilityOfElementLocated(this.locator));
         this.resetImplicitTimeout();
         if (el != null) {
-            isVisible = true;
             logger.info("Element has become visible");
+            return true;
         } else {
             logger.info("Element is still not visible");
+            return false;
         }
-        return isVisible;
     }
 
 
@@ -262,17 +261,16 @@ public class WebElementX {
 
 
     public boolean waitTillIsPresent(long timeoutInSeconds) {
-        boolean isPresent = false;
         logger.info("Waiting till element [" + this.name + "] is present in DOM");
         WebDriverWait wait = new WebDriverWait(this.driver, timeoutInSeconds);
         WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(this.locator));
         if (el != null) {
-            isPresent = true;
             logger.info("Element is present");
+            return true;
         } else {
             logger.info("Element is not present");
+            return false;
         }
-        return isPresent;
     }
 
 

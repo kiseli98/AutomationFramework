@@ -30,7 +30,7 @@ public class Wait {
 
     public static void untilPageLoadComplete(WebDriver driver, Long timeoutInSeconds) {
         until(driver, (d) -> {
-            Boolean isPageLoaded = (Boolean) ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
+            Boolean isPageLoaded = (Boolean) ((JavascriptExecutor) d).executeScript("return document.readyState").equals("complete");
             if (!isPageLoaded) System.out.println("Document is loading");
             return isPageLoaded;
         }, timeoutInSeconds);
