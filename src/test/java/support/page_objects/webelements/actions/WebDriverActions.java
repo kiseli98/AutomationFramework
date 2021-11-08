@@ -2,6 +2,7 @@ package support.page_objects.webelements.actions;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+import support.page_objects.webelements.WebElementX;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -74,11 +75,24 @@ public class WebDriverActions {
         }
     }
 
-    public void closeAndSwitchToParentWindow() {
+    public void closeAndSwitchToMainWindow() {
         closeWindow();
         switchToMainWindow();
     }
 
+    public void switchToIFrame(WebElementX iFrame) {
+        logger.info("Switching to iFrame - " + iFrame.getName());
+        driver.switchTo().frame(iFrame.getRawElement());
+    }
+
+    //Switching to main window from an iFrame
+    public void switchToDefaultContent() {
+        driver.switchTo().defaultContent();
+    }
+
+    public void switchToParentFrame() {
+        driver.switchTo().parentFrame();
+    }
 
     public void main(String[] args) {
 
