@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 class Test
 {
-    public static void main (String args[])
+    public static void main (String[] args)
     {
         System.out.println(10 + 20 + "j");
         System.out.println("j" + 10 + 20);

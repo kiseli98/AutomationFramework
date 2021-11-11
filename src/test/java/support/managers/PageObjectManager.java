@@ -37,7 +37,7 @@ import java.util.Set;
 //}
 
 public class PageObjectManager {
-    Map<String, BasePage> pages = new HashMap<>();
+    Map<Class<?>, Object> pages = new HashMap<>();
 
     public PageObjectManager(WebDriver driver) {
 
@@ -47,18 +47,20 @@ public class PageObjectManager {
         for (Class<?> cl : annotated) {
             try {
                 Constructor<?> constr = cl.getConstructor(String.class, WebDriver.class);
-                pages.put(cl.getSimpleName(), (BasePage) constr.newInstance(cl.getSimpleName(), driver));
+                pages.put(cl, cl.cast(constr.newInstance(cl.getSimpleName(), driver)));
             } catch (NoSuchMethodException | InstantiationException | InvocationTargetException | IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public BasePage get(String pageName) {
-        return pages.get(pageName);
+    public <T> T get(Class<T> pageClass) {
+        return pageClass.cast(pages.get(pageClass));
     }
 
     public static void main(String[] args) {
-        new PageObjectManager(new WebDriverManager().getDriver());
+        PageObjectManager pageObjectManager = new PageObjectManager(new WebDriverManager().getDriver());
+        WebStorePage webStorePage = pageObjectManager.get(WebStorePage.class);
+        System.out.println(webStorePage.name);
     }
 }

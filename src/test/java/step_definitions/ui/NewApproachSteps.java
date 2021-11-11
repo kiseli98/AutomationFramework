@@ -21,7 +21,7 @@ public class NewApproachSteps implements En {
         PageObjectManager pageObjectManager = context.getPageObjectManager();
         ScenarioContext scenarioContext = context.getScenarioContext();
 
-        WebStorePage webStorePage = (WebStorePage) pageObjectManager.get("WebStorePage");
+        WebStorePage webStorePage = pageObjectManager.get(WebStorePage.class);
 
 
         Given("^I am on the store page$", () -> {
