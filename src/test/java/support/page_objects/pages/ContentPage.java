@@ -7,8 +7,8 @@ public abstract class ContentPage extends BasePage {
 //TODO Header, Footer go here
 
 
-    public ContentPage(String name, WebDriver driver) {
-        super(name, driver);
+    public ContentPage(String name) {
+        super(name);
     }
 
 

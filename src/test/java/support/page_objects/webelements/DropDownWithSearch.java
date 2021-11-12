@@ -9,10 +9,10 @@ public class DropDownWithSearch extends WebElementX {
     public TextInput searchInput;
     public ElementsList<WebElementX> options;
 
-    public DropDownWithSearch(By locator, String name, WebElementX parentElement, WebDriver driver) {
-        super(locator, name != null ? name + " Plane DropDown" : null, parentElement, driver);
-        this.searchInput = new TextInput(By.xpath(".//input"), null, this, driver);
-        this.options = new ElementsList<WebElementX>(By.xpath(".//*[@*]"), null, this, driver);
+    public DropDownWithSearch(By locator, String name, WebElementX parentElement) {
+        super(locator, name != null ? name + " Plane DropDown" : null, parentElement);
+        this.searchInput = new TextInput(By.xpath(".//input"), null, this);
+        this.options = new ElementsList<WebElementX>(By.xpath(".//*[@*]"), null, this);
     }
 
     public void expand() {

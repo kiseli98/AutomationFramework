@@ -67,7 +67,6 @@ public class GoogleSteps {
                 break;
             case "money converter":
                 widget = googlePage.moneyConverterComponent;
-                throw new Error("Demo error. Test fails here");
         }
         Assert.assertTrue("Widget is not displayed", widget.isDisplayed());
     }

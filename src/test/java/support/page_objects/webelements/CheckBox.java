@@ -5,8 +5,8 @@ import org.openqa.selenium.WebDriver;
 
 public class CheckBox extends WebElementX {
 
-    public CheckBox(By locator, String name, WebElementX parentElement, WebDriver driver) {
-        super(locator, name != null ? name + " CheckBox" : null, parentElement, driver);
+    public CheckBox(By locator, String name, WebElementX parentElement) {
+        super(locator, name != null ? name + " CheckBox" : null, parentElement);
     }
 
     public boolean isChecked() {

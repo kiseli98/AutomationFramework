@@ -10,11 +10,11 @@ public class Header extends BaseComponent {
     public Button signInButton;
 
 
-    public Header(By locator, String name, WebDriver driver) {
-        super(locator, name, driver);
+    public Header(By locator, String name) {
+        super(locator, name);
         instance = this;
 
-        this.signInButton = new Button(By.xpath(".//a[@class=\"login\"]"), "Log In button", this, driver);
+        this.signInButton = new Button(By.xpath(".//a[@class=\"login\"]"), "Log In button", this);
 
     }
 

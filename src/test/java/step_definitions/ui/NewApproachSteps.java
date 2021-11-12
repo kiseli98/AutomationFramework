@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import support.context.ScenarioContext;
 import support.context.TestContext;
 import support.managers.PageObjectManager;
+import support.managers.WebDriverFactory;
 import support.page_objects.pages.WebStorePage;
 import support.page_objects.webelements.Button;
 import support.ui_dto.User;
@@ -17,7 +18,6 @@ public class NewApproachSteps implements En {
 
     public NewApproachSteps(TestContext context) {
 
-        WebDriver driver = context.getWebDriverManager().getDriver();
         PageObjectManager pageObjectManager = context.getPageObjectManager();
         ScenarioContext scenarioContext = context.getScenarioContext();
 

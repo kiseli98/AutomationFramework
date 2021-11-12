@@ -16,15 +16,15 @@ public class MyAccountComponent extends BaseComponent {
     public Button wishlistBtn;
 
 
-    public MyAccountComponent(By locator, String name, WebDriver driver) {
-        super(locator, name, driver);
+    public MyAccountComponent(By locator, String name) {
+        super(locator, name);
         instance = this;
 
-        this.ordersBtn = new Button(By.xpath(".//a[@title=\"Orders\"]"), "Orders", this, driver);
-        this.creditBtn = new Button(By.xpath(".//a[@title=\"Credit slips\"]"), "Credit", this, driver);
-        this.addressesBtn = new Button(By.xpath(".//a[@title=\"Addresses\"]"), "Addresses", this, driver);
-        this.infoBtn = new Button(By.xpath(".//a[@title=\"Information\"]"), "Information", this, driver);
-        this.wishlistBtn = new Button(By.xpath(".//a[@title=\"My wishlists\"]"), "My wishlists", this, driver);
+        this.ordersBtn = new Button(By.xpath(".//a[@title=\"Orders\"]"), "Orders", this);
+        this.creditBtn = new Button(By.xpath(".//a[@title=\"Credit slips\"]"), "Credit", this);
+        this.addressesBtn = new Button(By.xpath(".//a[@title=\"Addresses\"]"), "Addresses", this);
+        this.infoBtn = new Button(By.xpath(".//a[@title=\"Information\"]"), "Information", this);
+        this.wishlistBtn = new Button(By.xpath(".//a[@title=\"My wishlists\"]"), "My wishlists", this);
 
     }
 

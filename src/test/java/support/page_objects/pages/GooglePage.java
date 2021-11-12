@@ -21,13 +21,13 @@ public class GooglePage extends ContentPage {
     public TextInput searchbarX;
     public WebElementX testEl;
 
-    public GooglePage(String name, WebDriver driver) {
-        super(name, driver);
+    public GooglePage(String name) {
+        super(name);
         PageFactory.initElements(this.driver, this);
 
-        this.searchBtnX = new WebElementX(By.name("btnK"), "Search button", null, driver);
-        this.searchbarX = new TextInput(By.name("q"), "Search bar", null, driver);
-        this.testEl = new WebElementX(By.xpath(".//body"), "test el", null, driver);
+        this.searchBtnX = new WebElementX(By.name("btnK"), "Search button", null);
+        this.searchbarX = new TextInput(By.name("q"), "Search bar", null);
+        this.testEl = new WebElementX(By.xpath(".//body"), "test el", null);
     }
 
 

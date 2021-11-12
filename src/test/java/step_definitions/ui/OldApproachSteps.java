@@ -5,22 +5,18 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.time.Duration;
+import java.util.Map;
+import java.util.function.Function;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import support.context.TestContext;
-import support.page_objects.webelements.ElementsList;
-import support.page_objects.webelements.PlainDropDown;
-import support.page_objects.webelements.WebElementX;
-
-import java.time.Duration;
-import java.util.Map;
-import java.util.function.Function;
+import support.managers.WebDriverFactory;
 
 public class OldApproachSteps {
     private TestContext testContext;
@@ -29,7 +25,7 @@ public class OldApproachSteps {
 
     public OldApproachSteps(TestContext context) {
         this.testContext = context;
-        this.driver = context.getWebDriverManager().getDriver();
+        this.driver = WebDriverFactory.getWebDriver();
     }
 
 

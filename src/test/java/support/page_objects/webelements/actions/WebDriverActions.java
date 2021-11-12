@@ -2,6 +2,7 @@ package support.page_objects.webelements.actions;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+import support.managers.WebDriverFactory;
 import support.page_objects.webelements.WebElementX;
 
 import java.util.Iterator;
@@ -10,10 +11,9 @@ import java.util.Set;
 public class WebDriverActions {
     final Logger logger = Logger.getLogger(WebDriverActions.class);
     private String mainWindow = null;
-    private WebDriver driver;
+    private WebDriver driver = WebDriverFactory.getWebDriver();
     
-    public WebDriverActions(WebDriver driver) {
-        this.driver = driver;
+    public WebDriverActions() {
     }
     
     public String getPageTitle() {

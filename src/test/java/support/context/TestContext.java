@@ -1,21 +1,16 @@
 package support.context;
 
 import support.managers.PageObjectManager;
-import support.managers.WebDriverManager;
+import support.managers.WebDriverFactory;
 
 public class TestContext {
-    WebDriverManager webDriverManager;
     PageObjectManager pageObjectManager;
     ScenarioContext scenarioContext;
 
     public TestContext(){
-        webDriverManager = new WebDriverManager();
-        pageObjectManager = new PageObjectManager(webDriverManager.getDriver());
+        WebDriverFactory.setUpDriver();
+        pageObjectManager = new PageObjectManager();
         scenarioContext = new ScenarioContext();
-    }
-
-    public WebDriverManager getWebDriverManager() {
-        return webDriverManager;
     }
 
     public PageObjectManager getPageObjectManager() {

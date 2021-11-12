@@ -17,16 +17,16 @@ public class WebStorePage extends ContentPage {
     public OrderHistoryComponent orderHistoryComponent;
     public Header header;
 
-    public WebStorePage(String name, WebDriver driver) {
-        super(name, driver);
+    public WebStorePage(String name) {
+        super(name);
         instance = this;
-        this.header = new Header(By.xpath(".//nav"), "Header", driver);
+        this.header = new Header(By.xpath(".//nav"), "Header");
         this.authenticationComponent =
-                new AuthenticationComponent(By.xpath(".//form[@id=\"login_form\"]"), "Auth", driver);
+                new AuthenticationComponent(By.xpath(".//form[@id=\"login_form\"]"), "Auth");
         this.myAccountComponent =
-                new MyAccountComponent(By.xpath(".//div[@id=\"center_column\" and .//h1[.=\"My account\"]]"), "My account", driver);
+                new MyAccountComponent(By.xpath(".//div[@id=\"center_column\" and .//h1[.=\"My account\"]]"), "My account");
         this.orderHistoryComponent =
-                new OrderHistoryComponent(By.xpath(".//div[@id=\"center_column\" and .//h1[.=\"Order history\"]]"), "Order History", driver);
+                new OrderHistoryComponent(By.xpath(".//div[@id=\"center_column\" and .//h1[.=\"Order history\"]]"), "Order History");
     }
 
 

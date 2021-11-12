@@ -13,11 +13,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import support.managers.WebDriverFactory;
 
 public class WebElementX {
     final Logger logger = Logger.getLogger(WebElementX.class);
 
-    protected WebDriver driver;
+    protected WebDriver driver = WebDriverFactory.getWebDriver();
     protected ArrayList<WebElementX> innerElements = new ArrayList<>();
     protected WebElementX parentElement;
     protected By locator;
@@ -25,36 +26,27 @@ public class WebElementX {
     protected final long IMPLICIT_NO_TIMEOUT = 500;
     protected final long DEFAULT_TIMEOUT = FileReaderManager.getInstance().getConfigReader().getImplicitWait();
 
-    public WebElementX(By locator, String name, WebElementX parentElement, WebDriver driver) {
+    public WebElementX(By locator, String name, WebElementX parentElement) {
         this.locator = locator;
         this.name = name != null ? name : locator.toString();
         this.parentElement = parentElement;
-        this.driver = driver;
-    }
-
-    public WebElementX(By locator, String name, WebDriver driver) {
-        this.locator = locator;
-        this.name = name != null ? name : locator.toString();
-        this.driver = driver;
-    }
-
-    public WebElementX(By locator, WebDriver driver) {
-        this.locator = locator;
-        this.name = locator.toString();
-        this.driver = driver;
     }
 
     public WebElementX(By locator, String name) {
-        logger.warn("DRIVER IS NOT SET");
         this.locator = locator;
-        this.name = name;
+        this.name = name != null ? name : locator.toString();
+    }
+
+    public WebElementX(By locator) {
+        this.locator = locator;
+        this.name = locator.toString();
     }
 
     public <T extends WebElementX> T elementOfType(By locator, String name, Class<T> clazz) {
         T object = null;
         try {
-            Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class, WebDriver.class);
-            object = (T) ctor.newInstance(locator, name, this, driver);
+            Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class);
+            object = (T) ctor.newInstance(locator, name, this);
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -67,11 +59,11 @@ public class WebElementX {
     }
 
     public WebElementX element(By locator) {
-        return new WebElementX(locator, null, this, this.driver);
+        return new WebElementX(locator, null, this);
     }
 
     public ElementsList<WebElementX> elements(By locator) {
-        return new ElementsList<WebElementX>(locator, null, this, this.driver);
+        return new ElementsList<WebElementX>(locator, null, this);
     }
 
     public List<WebElement> all(By locator) {
@@ -82,19 +74,6 @@ public class WebElementX {
         return name;
     }
 
-    public WebDriver getDriver() {
-        return driver;
-    }
-
-    public void setDriver(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public void setDriverForInnerElements(WebDriver driver) {
-        this.innerElements.forEach( el ->{
-            el.setDriver(driver);
-        });
-    }
 
     public void click() {
         logger.info("Clicking:: [" + this.name + "]");
@@ -198,11 +177,6 @@ public class WebElementX {
     }
 
     public void expectToBeDisplayed() {
-        Assert.assertTrue(this.name + " is not visible", this.getRawElement().isDisplayed());
-    }
-
-    public void expectToBeDisplayedWithDriver(WebDriver driver) {
-        this.setDriver(driver);
         Assert.assertTrue(this.name + " is not visible", this.getRawElement().isDisplayed());
     }
 

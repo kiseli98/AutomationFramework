@@ -2,18 +2,16 @@ package support.page_objects.pages;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import support.managers.WebDriverManager;
-import support.page_objects.webelements.WebElementX;
+import support.managers.WebDriverFactory;
 
 public abstract class BasePage {
     final Logger logger = Logger.getLogger(BasePage.class);
     public String baseUrl = "";
     public String name;
-    WebDriver driver;
+    WebDriver driver = WebDriverFactory.getWebDriver();
 
-    public BasePage(String name, WebDriver driver){
+    public BasePage(String name){
         this.name = name;
-        this.driver = driver;
         logger.info("Constructing Page:: " + this.name);
     }
 
@@ -30,14 +28,6 @@ public abstract class BasePage {
     public void open(String url){
         logger.info("Navigate to:: " + url);
         this.driver.get(url);
-    }
-
-    public void setDriver(WebDriver driver){
-        this.driver = driver;
-    }
-
-    public WebDriver getDriver() {
-        return driver;
     }
 
     public String getTitle() {

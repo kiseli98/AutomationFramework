@@ -25,12 +25,12 @@ public class ModalWindow extends WebElementX {
             ".//button[normalize-space()=\"Abort\"]"
     );
 
-    public ModalWindow(By locator, String name, WebElementX parentElement, WebDriver driver) {
-        super(locator, name != null ? name + " Modal" : null, parentElement, driver);
+    public ModalWindow(By locator, String name, WebElementX parentElement) {
+        super(locator, name != null ? name + " Modal" : null, parentElement);
     }
 
     public ModalWindow(String modalText, WebDriver driver) {
-        super(By.xpath(defaultLocator.replaceAll("modalName", modalText)), "Modal:: " + modalText, driver);
+        super(By.xpath(defaultLocator.replaceAll("modalName", modalText)), "Modal:: " + modalText);
     }
 
     public WebElementX getConfirmButton() {

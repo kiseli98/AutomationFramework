@@ -13,12 +13,12 @@ public class AuthenticationComponent extends BaseComponent {
     public TextInput passwordInput;
     public Button signInButton;
 
-    public AuthenticationComponent(By locator, String name, WebDriver driver) {
-        super(locator, name, driver);
+    public AuthenticationComponent(By locator, String name) {
+        super(locator, name);
         instance = this;
-        this.emailInput = new TextInput(By.xpath(".//input[@name=\"email\"]"), "Email", this, driver);
-        this.passwordInput = new TextInput(By.xpath(".//input[@name=\"passwd\"]"), "Password", this, driver);
-        this.signInButton = new Button(By.xpath(".//button[@id=\"SubmitLogin\"]"), "Log in", this, driver);
+        this.emailInput = new TextInput(By.xpath(".//input[@name=\"email\"]"), "Email", this);
+        this.passwordInput = new TextInput(By.xpath(".//input[@name=\"passwd\"]"), "Password", this);
+        this.signInButton = new Button(By.xpath(".//button[@id=\"SubmitLogin\"]"), "Log in", this);
 
     }
 
