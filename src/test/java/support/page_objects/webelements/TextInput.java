@@ -29,4 +29,9 @@ public class TextInput extends WebElementX {
         this.getRawElement().sendKeys(Keys.CONTROL+"A");
         this.getRawElement().sendKeys(Keys.BACK_SPACE);
     }
+
+    public void clearAndType(String text) {
+        clear();
+        appendKeys(text);
+    }
 }

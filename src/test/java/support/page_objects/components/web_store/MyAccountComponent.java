@@ -8,22 +8,15 @@ import support.page_objects.webelements.Button;
 
 public class MyAccountComponent extends BaseComponent {
 
-    public Button ordersBtn;
-    public Button creditBtn;
-    public Button addressesBtn;
-    public Button infoBtn;
-    public Button wishlistBtn;
+    public Button ordersBtn = new Button(By.xpath(".//a[@title=\"Orders\"]"), "Orders", this);
+    public Button creditBtn  = new Button(By.xpath(".//a[@title=\"Credit slips\"]"), "Credit", this);
+    public Button addressesBtn = new Button(By.xpath(".//a[@title=\"Addresses\"]"), "Addresses", this);
+    public Button infoBtn  = new Button(By.xpath(".//a[@title=\"Information\"]"), "Information", this);
+    public Button wishlistBtn  = new Button(By.xpath(".//a[@title=\"My wishlists\"]"), "My wishlists", this);
 
 
     public MyAccountComponent(By locator, String name) {
         super(locator, name);
-
-        this.ordersBtn = new Button(By.xpath(".//a[@title=\"Orders\"]"), "Orders", this);
-        this.creditBtn = new Button(By.xpath(".//a[@title=\"Credit slips\"]"), "Credit", this);
-        this.addressesBtn = new Button(By.xpath(".//a[@title=\"Addresses\"]"), "Addresses", this);
-        this.infoBtn = new Button(By.xpath(".//a[@title=\"Information\"]"), "Information", this);
-        this.wishlistBtn = new Button(By.xpath(".//a[@title=\"My wishlists\"]"), "My wishlists", this);
-
     }
 
 

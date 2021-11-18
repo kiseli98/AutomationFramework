@@ -22,6 +22,7 @@ public class WebElementX {
 
     protected ConfigFileReader configs = FileReaderManager.getInstance().getConfigReader();
     protected WebDriver driver = WebDriverFactory.getWebDriver();
+    protected JavascriptExecutor jsExecutor = ((JavascriptExecutor) driver);
     protected WebElementX parentElement;
     protected By locator;
     protected String name;
@@ -166,9 +167,19 @@ public class WebElementX {
         this.getRawElement().sendKeys(key);
     }
 
-    public void browserClick() {
-        log.info("Browser click:: [" + this.name + "]");
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click()", this.getRawElement());
+    public void jsClick() {
+        log.info("JS click:: [" + this.name + "]");
+        jsExecutor.executeScript("arguments[0].click()", this.getRawElement());
+    }
+
+    public void executeJs(String js) {
+        log.info("Executing JS script \"" + js + "\" on [" + this.name + "]");
+        jsExecutor.executeScript("arguments[0].click()", this.getRawElement());
+    }
+
+    public void executeJsOnElement(String js, WebElementX el) {
+        log.info("Executing JS script \"" + js + "\" on [" + el.name + "]");
+        jsExecutor.executeScript("arguments[0].click()", el.getRawElement());
     }
 
     public void setImplicitTimeout(long timeoutInMilliseconds) {

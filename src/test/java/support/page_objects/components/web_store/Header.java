@@ -6,14 +6,11 @@ import support.page_objects.webelements.BaseComponent;
 import support.page_objects.webelements.Button;
 
 public class Header extends BaseComponent {
-    public Button signInButton;
+    public Button signInButton = new Button(By.xpath(".//a[@class=\"login\"]"), "Log In button", this);
 
 
     public Header(By locator, String name) {
         super(locator, name);
-
-        this.signInButton = new Button(By.xpath(".//a[@class=\"login\"]"), "Log In button", this);
-
     }
 
 
