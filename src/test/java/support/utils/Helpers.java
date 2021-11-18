@@ -1,8 +1,5 @@
 package support.utils;
 
-import org.apache.log4j.Logger;
-import support.page_objects.webelements.WebElementX;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;

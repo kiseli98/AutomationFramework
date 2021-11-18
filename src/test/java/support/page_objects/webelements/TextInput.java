@@ -3,11 +3,10 @@ package support.page_objects.webelements;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 
 @Log4j
-public class TextInput extends WebElementX {
-    public TextInput(By locator, String name, WebElementX parentElement) {
+public class TextInput extends CustomElement {
+    public TextInput(By locator, String name, CustomElement parentElement) {
         super(locator, name != null ? name + " TextInput" : null, parentElement);
     }
 

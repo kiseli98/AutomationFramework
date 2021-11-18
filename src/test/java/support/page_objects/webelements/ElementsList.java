@@ -15,16 +15,16 @@ import support.managers.WebDriverFactory;
 import support.utils.Helpers;
 
 @Log4j
-public class ElementsList<T extends WebElementX> {
+public class ElementsList<T extends CustomElement> {
 //    final Logger logger = Logger.getLogger(ElementsList.class);
     protected static final String xpathPattern = "\\.[/]{1,2}.*";
 
     protected WebDriver driver = WebDriverFactory.getWebDriver();
-    protected WebElementX parentElement = null;
+    protected CustomElement parentElement = null;
     protected By locator;
     protected String name;
 
-    public ElementsList(By locator, String name, WebElementX parentElement) {
+    public ElementsList(By locator, String name, CustomElement parentElement) {
         this.locator = locator;
         this.name = name != null ? name : locator.toString();
         this.parentElement = parentElement;
@@ -35,7 +35,7 @@ public class ElementsList<T extends WebElementX> {
         this.name = name != null ? name : locator.toString();
     }
 
-    public <T extends WebElementX> Object apply(Class<T> clazz, Function<T, Object> func) {
+    public <T extends CustomElement> Object apply(Class<T> clazz, Function<T, Object> func) {
         return Helpers.range(this.getCount()).stream().map(i -> func.apply(this.get(i, clazz))).collect(Collectors.toList());
     }
 
@@ -61,12 +61,12 @@ public class ElementsList<T extends WebElementX> {
         return list;
     }
 
-    public <T extends WebElementX> T get(int index, Class<T> clazz) {
+    public <T extends CustomElement> T get(int index, Class<T> clazz) {
         // xpath index starts from 1
         String elementLocator = "(" + Helpers.getRegexMatch(this.locator.toString(), xpathPattern, 0) + ")[" + ++index + "]";
         T object = null;
         try {
-            Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class);
+            Constructor<?> ctor = clazz.getConstructor(By.class, String.class, CustomElement.class);
             object = (T) ctor.newInstance(By.xpath(elementLocator), null, null);
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
@@ -74,12 +74,12 @@ public class ElementsList<T extends WebElementX> {
         return object;
     }
 
-    public <T extends WebElementX> T get(int index, Class<T> clazz, WebElementX parent) {
+    public <T extends CustomElement> T get(int index, Class<T> clazz, CustomElement parent) {
         // xpath index starts from 1
         String elementLocator = "(" + Helpers.getRegexMatch(this.locator.toString(), xpathPattern, 0) + ")[" + ++index + "]";
         T object = null;
         try {
-            Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class);
+            Constructor<?> ctor = clazz.getConstructor(By.class, String.class, CustomElement.class);
             object = (T) ctor.newInstance(By.xpath(elementLocator), null, parent);
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
@@ -117,7 +117,7 @@ public class ElementsList<T extends WebElementX> {
         return Helpers.range(getCount()).stream().map(i -> this.getElement().get(i).getText().trim()).collect(Collectors.toList());
     }
 
-    public <T extends WebElementX> T getByContainingText(String s, Class<T> clazz) {
+    public <T extends CustomElement> T getByContainingText(String s, Class<T> clazz) {
         String newLocator = Helpers.getRegexMatch(this.locator.toString(), xpathPattern, 0);
         if (!newLocator.isEmpty()) {
             newLocator = newLocator.replaceAll("]$", " and .//*[normalize-space()=\"" + s + "\"]]")
@@ -126,7 +126,7 @@ public class ElementsList<T extends WebElementX> {
             T object = null;
             log.debug("Getting element by text, " + newLocator);
             try {
-                Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class);
+                Constructor<?> ctor = clazz.getConstructor(By.class, String.class, CustomElement.class);
                 object = (T) ctor.newInstance(By.xpath(newLocator), null, null);
             } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
                 e.printStackTrace();
@@ -138,7 +138,7 @@ public class ElementsList<T extends WebElementX> {
         }
     }
 
-    public <T extends WebElementX> T getByContainingText(String s, Class<T> clazz, WebElementX parent) {
+    public <T extends CustomElement> T getByContainingText(String s, Class<T> clazz, CustomElement parent) {
         String newLocator = Helpers.getRegexMatch(this.locator.toString(), xpathPattern, 0);
         if (!newLocator.isEmpty()) {
             newLocator = newLocator.replaceAll("]$", " and .//*[normalize-space()=\"" + s + "\"]]")
@@ -147,7 +147,7 @@ public class ElementsList<T extends WebElementX> {
             T object = null;
             log.debug("Getting element by text, " + newLocator);
             try {
-                Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class);
+                Constructor<?> ctor = clazz.getConstructor(By.class, String.class, CustomElement.class);
                 object = (T) ctor.newInstance(By.xpath(newLocator), null, parent);
             } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
                 e.printStackTrace();
@@ -159,7 +159,7 @@ public class ElementsList<T extends WebElementX> {
         }
     }
 
-    public <T extends WebElementX> T getByStrictText(String s, Class<T> clazz) {
+    public <T extends CustomElement> T getByStrictText(String s, Class<T> clazz) {
         String newLocator = Helpers.getRegexMatch(this.locator.toString(), xpathPattern, 0);
         if (!newLocator.isEmpty()) {
             newLocator = newLocator.replaceAll("]$", " and .//*[normalize-space()=\"" + s + "\"]]")
@@ -168,7 +168,7 @@ public class ElementsList<T extends WebElementX> {
             T object = null;
             log.debug("Getting element by text, " + newLocator);
             try {
-                Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class);
+                Constructor<?> ctor = clazz.getConstructor(By.class, String.class, CustomElement.class);
                 object = (T) ctor.newInstance(By.xpath(newLocator), null, null);
             } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
                 e.printStackTrace();
@@ -180,7 +180,7 @@ public class ElementsList<T extends WebElementX> {
         }
     }
 
-    public <T extends WebElementX> T getByStrictText(String s, Class<T> clazz, WebElementX parent) {
+    public <T extends CustomElement> T getByStrictText(String s, Class<T> clazz, CustomElement parent) {
         String newLocator = Helpers.getRegexMatch(this.locator.toString(), xpathPattern, 0);
         if (!newLocator.isEmpty()) {
             newLocator = newLocator.replaceAll("]$", " and .//*[normalize-space()=\"" + s + "\"]]")
@@ -189,7 +189,7 @@ public class ElementsList<T extends WebElementX> {
             T object = null;
             log.debug("Getting element by text, " + newLocator);
             try {
-                Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class);
+                Constructor<?> ctor = clazz.getConstructor(By.class, String.class, CustomElement.class);
                 object = (T) ctor.newInstance(By.xpath(newLocator), null, parent);
             } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
                 e.printStackTrace();

@@ -2,20 +2,19 @@ package support.page_objects.webelements;
 
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import support.utils.Helpers;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Log4j
-public class SimpleTable extends WebElementX {
-    public ElementsList<WebElementX> headerRepeater = new ElementsList<>(By.xpath(".//th"), null, this);
+public class SimpleTable extends CustomElement {
+    public ElementsList<CustomElement> headerRepeater = new ElementsList<>(By.xpath(".//th"), null, this);
 
 
     public String rowLocator = ".//tbody/tr";
 
-    public SimpleTable(By locator, String name, WebElementX parentElement) {
+    public SimpleTable(By locator, String name, CustomElement parentElement) {
         super(locator, name != null ? name + " Table" : null, parentElement);
     }
 
@@ -23,12 +22,12 @@ public class SimpleTable extends WebElementX {
      * @param index starts from 1
      * @return
      */
-    public WebElementX getRow(int index) {
+    public CustomElement getRow(int index) {
         String finalLocator = this.rowLocator + "[" + index + "]";
-        return new WebElementX(By.xpath(finalLocator), null, this);
+        return new CustomElement(By.xpath(finalLocator), null, this);
     }
 
-    public ElementsList<WebElementX> getRows() {
+    public ElementsList<CustomElement> getRows() {
         String finalLocator = this.rowLocator;
         return new ElementsList<>(By.xpath(finalLocator), null, this);
     }
@@ -38,7 +37,7 @@ public class SimpleTable extends WebElementX {
      * @param colNum starts from 1
      * @return
      */
-    public WebElementX getRowCell(WebElementX row, int colNum) {
+    public CustomElement getRowCell(CustomElement row, int colNum) {
         return row.element(By.xpath(".//td[" + colNum + "]"));
     }
 
@@ -47,7 +46,7 @@ public class SimpleTable extends WebElementX {
      * @param colNum starts from 1
      * @return
      */
-    public WebElementX getTableCell(int rowNum, int colNum) {
+    public CustomElement getTableCell(int rowNum, int colNum) {
         log.info("Getting Table Cell rowNum: " + rowNum + " colNum:" + colNum);
         return this.getRowCell(this.getRow(rowNum), colNum);
     }
@@ -71,7 +70,7 @@ public class SimpleTable extends WebElementX {
         return colIndex;
     }
 
-    public List<WebElementX> getColumnByField(String colName) {
+    public List<CustomElement> getColumnByField(String colName) {
         log.info("Getting column by name [" + colName + ']');
         int colIndex = getColumnIndex(colName);
         return Helpers.range(getRowsCount()).stream().map(i ->
@@ -84,7 +83,7 @@ public class SimpleTable extends WebElementX {
      * @param rowIndex starts from 1
      * @return
      */
-    public WebElementX getCellByField(String colName, int rowIndex) {
+    public CustomElement getCellByField(String colName, int rowIndex) {
         log.info("Getting cell by column name [" + colName + "] row: " + rowIndex);
         int colIndex = getColumnIndex(colName);
         return this.getRowCell(this.getRow(rowIndex), colIndex + 1);

@@ -5,7 +5,7 @@ import java.util.Set;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.WebDriver;
 import support.managers.WebDriverFactory;
-import support.page_objects.webelements.WebElementX;
+import support.page_objects.webelements.CustomElement;
 
 @Log4j
 public class WebDriverActions {
@@ -80,7 +80,7 @@ public class WebDriverActions {
         switchToMainWindow();
     }
 
-    public void switchToIFrame(WebElementX iFrame) {
+    public void switchToIFrame(CustomElement iFrame) {
         log.info("Switching to iFrame - " + iFrame.getName());
         driver.switchTo().frame(iFrame.getRawElement());
     }

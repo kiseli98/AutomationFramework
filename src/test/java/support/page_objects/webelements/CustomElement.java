@@ -11,45 +11,42 @@ import support.managers.FileReaderManager;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import support.managers.WebDriverFactory;
 
 @Log4j
-public class WebElementX {
-//    final Logger logger = Logger.getLogger(WebElementX.class);
-
+public class CustomElement {
     protected ConfigFileReader configs = FileReaderManager.getInstance().getConfigReader();
     protected WebDriver driver = WebDriverFactory.getWebDriver();
     protected JavascriptExecutor jsExecutor = ((JavascriptExecutor) driver);
-    protected WebElementX parentElement;
+    protected CustomElement parentElement;
     protected By locator;
     protected String name;
     protected final long IMPLICIT_NO_TIMEOUT = 500;
     protected final long DEFAULT_TIMEOUT = configs.getImplicitWait();
     protected final long MAX_WAIT_TIME = configs.getMaxWaitTime();
 
-    public WebElementX(By locator, String name, WebElementX parentElement) {
+    public CustomElement(By locator, String name, CustomElement parentElement) {
         this.locator = locator;
         this.name = name != null ? name : locator.toString();
         this.parentElement = parentElement;
     }
 
-    public WebElementX(By locator, String name) {
+    public CustomElement(By locator, String name) {
         this.locator = locator;
         this.name = name != null ? name : locator.toString();
     }
 
-    public WebElementX(By locator) {
+    public CustomElement(By locator) {
         this.locator = locator;
         this.name = locator.toString();
     }
 
-    public <T extends WebElementX> T elementOfType(By locator, String name, Class<T> clazz) {
+    public <T extends CustomElement> T elementOfType(By locator, String name, Class<T> clazz) {
         T object = null;
         try {
-            Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class);
+            Constructor<?> ctor = clazz.getConstructor(By.class, String.class, CustomElement.class);
             object = (T) ctor.newInstance(locator, name, this);
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
@@ -62,12 +59,12 @@ public class WebElementX {
                 this.parentElement.getRawElement().findElement(this.locator) : this.driver.findElement(locator);
     }
 
-    public WebElementX element(By locator) {
-        return new WebElementX(locator, null, this);
+    public CustomElement element(By locator) {
+        return new CustomElement(locator, null, this);
     }
 
-    public ElementsList<WebElementX> elements(By locator) {
-        return new ElementsList<WebElementX>(locator, null, this);
+    public ElementsList<CustomElement> elements(By locator) {
+        return new ElementsList<CustomElement>(locator, null, this);
     }
 
     public List<WebElement> all(By locator) {
@@ -93,7 +90,7 @@ public class WebElementX {
         }
     }
 
-    public void hover(WebElementX el) {
+    public void hover(CustomElement el) {
         if (this.isDisplayed()) {
             log.info("Hovering:: [" + this.name  + "]");
             new Actions(this.driver).moveToElement(el.getRawElement()).moveToElement(this.getRawElement()).perform();
@@ -122,7 +119,7 @@ public class WebElementX {
         new Actions(this.driver).clickAndHold(this.getRawElement()).perform();
     }
 
-    public void dragAndDrop(WebElementX target) {
+    public void dragAndDrop(CustomElement target) {
         log.info("Dragging [" + this.name + "] into [" + target.name + "]");
         new Actions(this.driver).dragAndDrop(this.getRawElement(), target.getRawElement()).perform();
     }
@@ -133,7 +130,7 @@ public class WebElementX {
     }
 
     //    TODO
-    public static void tryToRecover(Exception exception, WebElementX elem) {
+    public static void tryToRecover(Exception exception, CustomElement elem) {
 
     }
 
@@ -177,7 +174,7 @@ public class WebElementX {
         jsExecutor.executeScript("arguments[0].click()", this.getRawElement());
     }
 
-    public void executeJsOnElement(String js, WebElementX el) {
+    public void executeJsOnElement(String js, CustomElement el) {
         log.info("Executing JS script \"" + js + "\" on [" + el.name + "]");
         jsExecutor.executeScript("arguments[0].click()", el.getRawElement());
     }
@@ -223,12 +220,12 @@ public class WebElementX {
     public boolean waitTillIsVisible(long timeoutInSeconds) {
         log.info("Waiting till element [" + this.name + "] is visible");
         WebDriverWait wait = new WebDriverWait(this.driver, timeoutInSeconds);
-        WebElement el = wait.until(ExpectedConditions.visibilityOfElementLocated(this.locator));
         this.resetImplicitTimeout();
-        if (el != null) {
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(this.locator));
             log.info("Element has become visible");
             return true;
-        } else {
+        } catch (Exception e){
             log.info("Element is still not visible");
             return false;
         }
@@ -251,11 +248,11 @@ public class WebElementX {
     public boolean waitTillIsPresent(long timeoutInSeconds) {
         log.info("Waiting till element [" + this.name + "] is present in DOM");
         WebDriverWait wait = new WebDriverWait(this.driver, timeoutInSeconds);
-        WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(this.locator));
-        if (el != null) {
+        try {
+            wait.until(ExpectedConditions.presenceOfElementLocated(this.locator));
             log.info("Element is present");
             return true;
-        } else {
+        } catch (Exception e){
             log.info("Element is not present");
             return false;
         }
@@ -263,29 +260,29 @@ public class WebElementX {
 
 
     public boolean waitTillIsEnabled(long timeoutInSeconds) {
-        boolean isEnabled = false;
         log.info("Waiting till element [" + this.name + "] is enabled and clickable");
         WebDriverWait wait = new WebDriverWait(this.driver, timeoutInSeconds);
-        WebElement el = wait.until(ExpectedConditions.elementToBeClickable(this.locator));
-        if (el != null) {
-            isEnabled = true;
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(this.getRawElement()));
             log.info("Element is enabled");
-        } else {
+            return true;
+        } catch (Exception e){
             log.info("Element is not enabled");
+            return false;
         }
-        return isEnabled;
     }
 
     public boolean waitTillIsDisabled(long timeoutInSeconds) {
         log.info("Waiting till element [" + this.name + "] is disabled");
         WebDriverWait wait = new WebDriverWait(this.driver, timeoutInSeconds);
-        boolean isDisabled = wait.until(ExpectedConditions.not(ExpectedConditions.elementToBeClickable(this.locator)));
-        if (isDisabled) {
+        try {
+            wait.until(ExpectedConditions.not(ExpectedConditions.elementToBeClickable(this.getRawElement())));
             log.info("Element is disabled");
-        } else {
-            log.info("Element is still enabled");
+            return true;
+        } catch (Exception e){
+            log.info("Element is not disabled");
+            return false;
         }
-        return isDisabled;
     }
 
 }

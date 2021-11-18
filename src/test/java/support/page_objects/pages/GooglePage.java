@@ -3,12 +3,11 @@ package support.page_objects.pages;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import support.page_objects.webelements.TextInput;
-import support.page_objects.webelements.WebElementX;
+import support.page_objects.webelements.CustomElement;
 
 import java.util.List;
 
@@ -19,17 +18,17 @@ public class GooglePage extends ContentPage {
 //    public static GooglePage instance = new GooglePage("GooglePage");
 
 
-    public WebElementX searchBtnX;
+    public CustomElement searchBtnX;
     public TextInput searchbarX;
-    public WebElementX testEl;
+    public CustomElement testEl;
 
     public GooglePage(String name) {
         super(name);
         PageFactory.initElements(this.driver, this);
 
-        this.searchBtnX = new WebElementX(By.name("btnK"), "Search button", null);
+        this.searchBtnX = new CustomElement(By.name("btnK"), "Search button", null);
         this.searchbarX = new TextInput(By.name("q"), "Search bar", null);
-        this.testEl = new WebElementX(By.xpath(".//body"), "test el", null);
+        this.testEl = new CustomElement(By.xpath(".//body"), "test el", null);
     }
 
 

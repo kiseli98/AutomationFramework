@@ -2,18 +2,17 @@ package support.page_objects.webelements;
 
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 @Log4j
-public class DropDownWithSearch extends WebElementX {
+public class DropDownWithSearch extends CustomElement {
 
     public TextInput searchInput;
-    public ElementsList<WebElementX> options;
+    public ElementsList<CustomElement> options;
 
-    public DropDownWithSearch(By locator, String name, WebElementX parentElement) {
+    public DropDownWithSearch(By locator, String name, CustomElement parentElement) {
         super(locator, name != null ? name + " Plane DropDown" : null, parentElement);
         this.searchInput = new TextInput(By.xpath(".//input"), null, this);
-        this.options = new ElementsList<WebElementX>(By.xpath(".//*[@*]"), null, this);
+        this.options = new ElementsList<CustomElement>(By.xpath(".//*[@*]"), null, this);
     }
 
     public void expand() {
@@ -30,7 +29,7 @@ public class DropDownWithSearch extends WebElementX {
         this.expand();
         this.search(val);
         if (this.options.getCount() > 0) {
-            this.options.getByStrictText(val, WebElementX.class, this).click();
+            this.options.getByStrictText(val, CustomElement.class, this).click();
         }
         else{
             throw new Error("Option [" + val +"] is missing");

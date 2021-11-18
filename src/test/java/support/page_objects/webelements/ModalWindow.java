@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 @Log4j
-public class ModalWindow extends WebElementX {
+public class ModalWindow extends CustomElement {
     static String defaultLocator = "TODO";
 
     String confirmButtonLocator = String.join(" | ",
@@ -27,7 +27,7 @@ public class ModalWindow extends WebElementX {
             ".//button[normalize-space()=\"Abort\"]"
     );
 
-    public ModalWindow(By locator, String name, WebElementX parentElement) {
+    public ModalWindow(By locator, String name, CustomElement parentElement) {
         super(locator, name != null ? name + " Modal" : null, parentElement);
     }
 
@@ -35,11 +35,11 @@ public class ModalWindow extends WebElementX {
         super(By.xpath(defaultLocator.replaceAll("modalName", modalText)), "Modal:: " + modalText);
     }
 
-    public WebElementX getConfirmButton() {
+    public CustomElement getConfirmButton() {
         return  this.element(By.xpath(confirmButtonLocator));
     }
 
-    public WebElementX getRejectButton() {
+    public CustomElement getRejectButton() {
         return  this.element(By.xpath(rejectButtonLocator));
     }
 

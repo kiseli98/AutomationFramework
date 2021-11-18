@@ -9,7 +9,7 @@ import support.managers.WebDriverFactory;
 import support.page_objects.pages.BasePage;
 import support.page_objects.pages.GooglePage;
 import support.page_objects.pages.WebStorePage;
-import support.page_objects.webelements.WebElementX;
+import support.page_objects.webelements.CustomElement;
 import support.utils.ElementResolver;
 
 public class CommonSteps implements En {
@@ -41,7 +41,7 @@ public class CommonSteps implements En {
         });
 
         Then("^I see \"([^\"]*)\" (component|element) (is|are) displayed correctly$", (String elem, String par1, String par2) -> {
-            WebElementX el = ElementResolver.resolve(elem, context);
+            CustomElement el = ElementResolver.resolve(elem, context);
             assert el != null;
             el.waitTillIsVisible(configs.getMaxWaitTime());
             el.expectToBeDisplayed();
