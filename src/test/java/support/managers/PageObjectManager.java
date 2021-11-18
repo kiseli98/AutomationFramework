@@ -31,6 +31,10 @@ public class PageObjectManager {
         return pageClass.cast(pages.get(pageClass));
     }
 
+    public Map<Class<?>, Object> getPages() {
+        return pages;
+    }
+
     public static void main(String[] args) {
 //        PageObjectManager pageObjectManager = new PageObjectManager();
 //        WebStorePage webStorePage = pageObjectManager.get(WebStorePage.class);

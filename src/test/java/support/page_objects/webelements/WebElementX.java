@@ -6,6 +6,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import support.config.ConfigFileReader;
 import support.managers.FileReaderManager;
 
 import java.lang.reflect.Constructor;
@@ -18,13 +19,15 @@ import support.managers.WebDriverFactory;
 public class WebElementX {
     final Logger logger = Logger.getLogger(WebElementX.class);
 
+    protected ConfigFileReader configs = FileReaderManager.getInstance().getConfigReader();
     protected WebDriver driver = WebDriverFactory.getWebDriver();
     protected ArrayList<WebElementX> innerElements = new ArrayList<>();
     protected WebElementX parentElement;
     protected By locator;
     protected String name;
     protected final long IMPLICIT_NO_TIMEOUT = 500;
-    protected final long DEFAULT_TIMEOUT = FileReaderManager.getInstance().getConfigReader().getImplicitWait();
+    protected final long DEFAULT_TIMEOUT = configs.getImplicitWait();
+    protected final long MAX_WAIT_TIME = configs.getMaxWaitTime();
 
     public WebElementX(By locator, String name, WebElementX parentElement) {
         this.locator = locator;

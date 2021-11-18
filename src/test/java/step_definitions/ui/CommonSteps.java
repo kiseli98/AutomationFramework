@@ -2,7 +2,9 @@ package step_definitions.ui;
 
 import io.cucumber.java8.En;
 import org.openqa.selenium.WebDriver;
+import support.config.ConfigFileReader;
 import support.context.TestContext;
+import support.managers.FileReaderManager;
 import support.managers.WebDriverFactory;
 import support.page_objects.pages.BasePage;
 import support.page_objects.pages.GooglePage;
@@ -13,6 +15,7 @@ import support.utils.ElementResolver;
 public class CommonSteps implements En {
 
     public CommonSteps(TestContext context) {
+        ConfigFileReader configs = FileReaderManager.getInstance().getConfigReader();
 
         GooglePage googlePage = context.getPageObjectManager().get(GooglePage.class);
         WebStorePage webStorePage = context.getPageObjectManager().get(WebStorePage.class);
@@ -38,9 +41,9 @@ public class CommonSteps implements En {
         });
 
         Then("^I see \"([^\"]*)\" (component|element) (is|are) displayed correctly$", (String elem, String par1, String par2) -> {
-            WebElementX el = ElementResolver.resolve(elem);
+            WebElementX el = ElementResolver.resolve(elem, context);
             assert el != null;
-            el.waitTillIsVisible(30);
+            el.waitTillIsVisible(configs.getMaxWaitTime());
             el.expectToBeDisplayed();
         });
 

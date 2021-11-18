@@ -66,6 +66,12 @@ public class ConfigFileReader {
         else throw new RuntimeException("implicitlyWait not specified in the Configuration file.");
     }
 
+    public long getMaxWaitTime() {
+        String maxWaitTime = properties.getProperty("maxWaitTime");
+        if (maxWaitTime != null) return Long.parseLong(maxWaitTime);
+        else throw new RuntimeException("maxWaitTime not specified in the Configuration file.");
+    }
+
     public String getApplicationUrl() {
         String url = properties.getProperty("url");
         if (url != null) return url;
