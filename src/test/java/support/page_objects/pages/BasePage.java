@@ -1,18 +1,20 @@
 package support.page_objects.pages;
 
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import support.managers.WebDriverFactory;
 
+@Log4j
 public abstract class BasePage {
-    final Logger logger = Logger.getLogger(BasePage.class);
+//    final Logger logger = Logger.getLogger(BasePage.class);
     public String baseUrl = "";
     public String name;
     WebDriver driver = WebDriverFactory.getWebDriver();
 
     public BasePage(String name){
         this.name = name;
-        logger.info("Constructing Page:: " + this.name);
+        log.info("Constructing Page:: " + this.name);
     }
 
     public String buildUrl(String urlPart) {
@@ -26,7 +28,7 @@ public abstract class BasePage {
     public abstract void waitPageReady(long timeoutInSeconds);
 
     public void open(String url){
-        logger.info("Navigate to:: " + url);
+        log.info("Navigate to:: " + url);
         this.driver.get(url);
     }
 

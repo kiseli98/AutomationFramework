@@ -5,6 +5,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.config.OperatingSystem;
 import lombok.experimental.UtilityClass;
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
@@ -27,9 +28,10 @@ import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 @UtilityClass
+@Log4j
 public class WebDriverFactory {
 
-	final Logger logger = Logger.getLogger(WebDriverFactory.class);
+//	final Logger logger = Logger.getLogger(WebDriverFactory.class);
 	private final ConfigFileReader config = FileReaderManager.getInstance().getConfigReader();
 	private static final DriverType driverType =
 		config.getBrowserFromParams() != null ? config.getBrowserFromParams() : config.getBrowser();
@@ -69,9 +71,9 @@ public class WebDriverFactory {
 			seleniumUrl = new URL(config.getSeleniumAddressFromParams() != null ? config.getSeleniumAddressFromParams()
 				: config.getProperty("gridAddress"));
 		} catch (MalformedURLException e) {
-			logger.error("MalformedURLException: ", e);
+			log.error("MalformedURLException: ", e);
 		}
-		logger.info("Starting Selenium remotely at: " + seleniumUrl);
+		log.info("Starting Selenium remotely at: " + seleniumUrl);
 		switch (driverType) {
 			case FIREFOX:
 				driver = new RemoteWebDriver(seleniumUrl, getFirefoxOptions());
@@ -90,14 +92,14 @@ public class WebDriverFactory {
 	private WebDriver createLocalDriver() {
 		WebDriver driver;
 		setupDriver(driverType.toString());
-		logger.info("Starting Selenium locally...");
+		log.info("Starting Selenium locally...");
 		switch (driverType) {
 			case FIREFOX:
 				driver = new FirefoxDriver();
 				break;
 			case ANDROID:
 				try {
-					logger.info("Using Appium at: " + config.getProperty("appiumAddress"));
+					log.info("Using Appium at: " + config.getProperty("appiumAddress"));
 					return new AppiumDriver<>(new URL(config.getProperty("appiumAddress")), getAndroidCapabilities());
 				} catch (Exception e) {
 					e.printStackTrace();

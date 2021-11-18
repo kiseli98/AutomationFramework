@@ -1,15 +1,15 @@
 package support.page_objects.webelements.actions;
 
-import org.apache.log4j.Logger;
+import java.util.Iterator;
+import java.util.Set;
+import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.WebDriver;
 import support.managers.WebDriverFactory;
 import support.page_objects.webelements.WebElementX;
 
-import java.util.Iterator;
-import java.util.Set;
-
+@Log4j
 public class WebDriverActions {
-    final Logger logger = Logger.getLogger(WebDriverActions.class);
+//    final Logger logger = Logger.getLogger(WebDriverActions.class);
     private String mainWindow = null;
     private WebDriver driver = WebDriverFactory.getWebDriver();
     
@@ -17,37 +17,37 @@ public class WebDriverActions {
     }
     
     public String getPageTitle() {
-        logger.info("Getting page title");
+        log.info("Getting page title");
         return driver.getTitle();
     }
 
     public void acceptAlert() {
-        logger.info("Accepting alert");
+        log.info("Accepting alert");
         driver.switchTo().alert().accept();
     }
 
     public void rejectAlert() {
-        logger.info("Rejecting alert");
+        log.info("Rejecting alert");
         driver.switchTo().alert().dismiss();
     }
 
     public String getAlertText() {
-        logger.info("Getting alert text");
+        log.info("Getting alert text");
         return driver.switchTo().alert().getText();
     }
 
     public void sendAlertKeys(String text) {
-        logger.info("Typing:: [" + text + "] into alert");
+        log.info("Typing:: [" + text + "] into alert");
         driver.switchTo().alert().sendKeys(text);
     }
 
     public void setMainWindow() {
         mainWindow = driver.getWindowHandle();
-        logger.info("Main Window is set to " + mainWindow);
+        log.info("Main Window is set to " + mainWindow);
     }
 
     public void switchToChildWindow() {
-        logger.info("Switching to child window");
+        log.info("Switching to child window");
         setMainWindow();
         Set<String> s1 = driver.getWindowHandles();
         Iterator<String> i1 = s1.iterator();
@@ -61,12 +61,12 @@ public class WebDriverActions {
     }
 
     public void closeWindow() {
-        logger.info("Closing current window");
+        log.info("Closing current window");
         driver.close();
     }
 
     public void switchToMainWindow() {
-        logger.info("Switching to Main Window - " + mainWindow);
+        log.info("Switching to Main Window - " + mainWindow);
 
         if (mainWindow != null) {
             driver.switchTo().window(mainWindow);
@@ -81,7 +81,7 @@ public class WebDriverActions {
     }
 
     public void switchToIFrame(WebElementX iFrame) {
-        logger.info("Switching to iFrame - " + iFrame.getName());
+        log.info("Switching to iFrame - " + iFrame.getName());
         driver.switchTo().frame(iFrame.getRawElement());
     }
 

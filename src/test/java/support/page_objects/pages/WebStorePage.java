@@ -1,5 +1,6 @@
 package support.page_objects.pages;
 
+import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import support.page_objects.components.web_store.AuthenticationComponent;
 import support.page_objects.components.web_store.Header;
@@ -7,6 +8,7 @@ import support.page_objects.components.web_store.MyAccountComponent;
 import support.page_objects.components.web_store.OrderHistoryComponent;
 
 @Page
+@Log4j
 public class WebStorePage extends ContentPage {
     String url = this.buildUrl("http://automationpractice.com/");
 

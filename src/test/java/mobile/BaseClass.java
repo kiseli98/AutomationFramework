@@ -40,7 +40,7 @@
 //
 //    @Test
 //    public void sampleTest() {
-//        logger.info("Inside sample test");
+//        log.info("Inside sample test");
 //    }
 //
 //

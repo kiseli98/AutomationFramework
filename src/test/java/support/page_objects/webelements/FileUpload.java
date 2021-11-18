@@ -1,8 +1,10 @@
 package support.page_objects.webelements;
 
+import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+@Log4j
 public class FileUpload extends WebElementX {
 
     public FileUpload(By locator, String name, WebElementX parentElement) {
@@ -12,7 +14,7 @@ public class FileUpload extends WebElementX {
     public void uploadFile(String file) {
 //        TODO
 //        String absolutePath = file + smth
-        logger.info("Uploading File: " + file);
+        log.info("Uploading File: " + file);
         this.getRawElement().sendKeys(file);
     }
 }

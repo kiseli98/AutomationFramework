@@ -1,8 +1,10 @@
 package support.page_objects.webelements;
 
+import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+@Log4j
 public class PlainDropDown extends WebElementX {
 
     public ElementsList<WebElementX> optionsRepeater;
@@ -18,7 +20,7 @@ public class PlainDropDown extends WebElementX {
     }
 
     public void setOptionByName(String option) {
-        logger.info("Selection option [" + option + "]");
+        log.info("Selection option [" + option + "]");
         this.optionsRepeater.getByContainingText(option, WebElementX.class).click();
     }
 

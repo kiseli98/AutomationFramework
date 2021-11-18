@@ -14,8 +14,6 @@ public class OrderHistoryComponent extends BaseComponent {
     public OrderHistoryComponent(By locator, String name) {
         super(locator, name);
         this.ordersTable = new SimpleTable(By.xpath(".//table[@id=\"order-list\"]"), "Orders table", this);
-
-        this.innerElements.add(ordersTable);
     }
 
     @Override

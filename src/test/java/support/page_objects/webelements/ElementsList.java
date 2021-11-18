@@ -1,6 +1,12 @@
 package support.page_objects.webelements;
 
-import org.apache.log4j.Logger;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import lombok.extern.log4j.Log4j;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,15 +14,9 @@ import org.openqa.selenium.WebElement;
 import support.managers.WebDriverFactory;
 import support.utils.Helpers;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
+@Log4j
 public class ElementsList<T extends WebElementX> {
-    final Logger logger = Logger.getLogger(ElementsList.class);
+//    final Logger logger = Logger.getLogger(ElementsList.class);
     protected static final String xpathPattern = "\\.[/]{1,2}.*";
 
     protected WebDriver driver = WebDriverFactory.getWebDriver();
@@ -88,13 +88,13 @@ public class ElementsList<T extends WebElementX> {
     }
 
     public WebElement getLast() {
-        logger.info("Retrieving the last element of elements list");
+        log.info("Retrieving the last element of elements list");
         return this.getElements().get(this.getElements().size() - 1);
     }
 
     public int getCount() {
         int size = this.getElements().size();
-        logger.info("Count of elements: " + size);
+        log.info("Count of elements: " + size);
         return size;
     }
 
@@ -104,7 +104,7 @@ public class ElementsList<T extends WebElementX> {
     }
 
     public List<Boolean> isDisplayed() {
-        logger.info("Checking if list elements are displayed");
+        log.info("Checking if list elements are displayed");
         return Helpers.range(getCount()).stream().map(i -> this.getElement().get(i).isDisplayed()).collect(Collectors.toList());
     }
 
@@ -113,7 +113,7 @@ public class ElementsList<T extends WebElementX> {
     }
 
     public List<String> getText() {
-        logger.info("Getting elements list text");
+        log.info("Getting elements list text");
         return Helpers.range(getCount()).stream().map(i -> this.getElement().get(i).getText().trim()).collect(Collectors.toList());
     }
 
@@ -124,7 +124,7 @@ public class ElementsList<T extends WebElementX> {
                     + " | "
                     + newLocator.replaceAll("]$", " and contains(,.\"" + s + "\")]");
             T object = null;
-            logger.debug("Getting element by text, " + newLocator);
+            log.debug("Getting element by text, " + newLocator);
             try {
                 Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class);
                 object = (T) ctor.newInstance(By.xpath(newLocator), null, null);
@@ -145,7 +145,7 @@ public class ElementsList<T extends WebElementX> {
                     + " | "
                     + newLocator.replaceAll("]$", " and contains(,.\"" + s + "\")]");
             T object = null;
-            logger.debug("Getting element by text, " + newLocator);
+            log.debug("Getting element by text, " + newLocator);
             try {
                 Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class);
                 object = (T) ctor.newInstance(By.xpath(newLocator), null, parent);
@@ -166,7 +166,7 @@ public class ElementsList<T extends WebElementX> {
                     + " | "
                     + newLocator.replaceAll("]$", " and normalize-space()=\"" + s + "\"]");
             T object = null;
-            logger.debug("Getting element by text, " + newLocator);
+            log.debug("Getting element by text, " + newLocator);
             try {
                 Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class);
                 object = (T) ctor.newInstance(By.xpath(newLocator), null, null);
@@ -187,7 +187,7 @@ public class ElementsList<T extends WebElementX> {
                     + " | "
                     + newLocator.replaceAll("]$", " and normalize-space()=\"" + s + "\"]");
             T object = null;
-            logger.debug("Getting element by text, " + newLocator);
+            log.debug("Getting element by text, " + newLocator);
             try {
                 Constructor<?> ctor = clazz.getConstructor(By.class, String.class, WebElementX.class);
                 object = (T) ctor.newInstance(By.xpath(newLocator), null, parent);

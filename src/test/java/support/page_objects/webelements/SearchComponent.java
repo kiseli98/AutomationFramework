@@ -1,8 +1,10 @@
 package support.page_objects.webelements;
 
+import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+@Log4j
 public class SearchComponent extends WebElementX {
     public TextInput searchInput;
     public Button searchButton;
@@ -14,13 +16,13 @@ public class SearchComponent extends WebElementX {
     }
 
     public void search(String val) {
-        logger.info("Searching for:: " + val);
+        log.info("Searching for:: " + val);
         this.searchInput.waitTillIsEnabled(10);
         this.searchInput.appendKeys(val);
     }
 
     public void searchWithClick(String val) {
-        logger.info("Searching for:: " + val);
+        log.info("Searching for:: " + val);
         this.searchInput.waitTillIsEnabled(10);
         this.searchInput.appendKeys(val);
         this.searchButton.waitTillIsEnabled(10);

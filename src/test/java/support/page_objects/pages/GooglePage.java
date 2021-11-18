@@ -1,5 +1,6 @@
 package support.page_objects.pages;
 
+import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -12,6 +13,7 @@ import support.page_objects.webelements.WebElementX;
 import java.util.List;
 
 @Page
+@Log4j
 public class GooglePage extends ContentPage {
     String url = this.buildUrl("https://google.com/");
 //    public static GooglePage instance = new GooglePage("GooglePage");

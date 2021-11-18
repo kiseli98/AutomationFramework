@@ -1,5 +1,6 @@
 package support.page_objects.webelements;
 
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 
@@ -7,8 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Log4j
 public class RadioGroup {
-    protected final Logger logger = Logger.getLogger(RadioGroup.class);
+//    protected final Logger logger = Logger.getLogger(RadioGroup.class);
     private PlainRadioElement[] elements;
 
     public RadioGroup(PlainRadioElement[] elements) {
@@ -22,7 +24,7 @@ public class RadioGroup {
     }
 
     public void select(String name) {
-        logger.info("Selecting " + " radio option");
+        log.info("Selecting " + " radio option");
         PlainRadioElement el = getElement(name);
         if (el != null) {
             el.element(By.xpath(".//input")).click();
