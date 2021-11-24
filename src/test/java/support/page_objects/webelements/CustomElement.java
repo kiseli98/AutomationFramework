@@ -1,5 +1,6 @@
 package support.page_objects.webelements;
 
+import java.util.Arrays;
 import lombok.extern.log4j.Log4j;
 import org.junit.Assert;
 import org.openqa.selenium.*;
@@ -41,6 +42,10 @@ public class CustomElement {
     public CustomElement(By locator) {
         this.locator = locator;
         this.name = locator.toString();
+    }
+
+    public By getLocator() {
+        return locator;
     }
 
     public <T extends CustomElement> T elementOfType(By locator, String name, Class<T> clazz) {
@@ -107,6 +112,22 @@ public class CustomElement {
     public void rightClick() {
         log.info("Right clicking:: [" + this.name + "]");
         new Actions(this.driver).contextClick(this.getRawElement()).perform();
+    }
+
+    public void clickMultipleCustomElementsWithCtrl(List<CustomElement> elements) {
+        log.info("Right clicking:: [" + this.name + "]");
+        Actions actions = new Actions(this.driver);
+        actions.keyDown(Keys.LEFT_CONTROL);
+        elements.forEach(el -> actions.click(el.getRawElement()));
+        actions.keyUp(Keys.LEFT_CONTROL).build().perform();
+    }
+
+    public void clickMultipleWebElementsWithCtrl(List<WebElement> elements) {
+        log.info("Right clicking:: [" + this.name + "]");
+        Actions actions = new Actions(this.driver);
+        actions.keyDown(Keys.LEFT_CONTROL);
+        elements.forEach(actions::click);
+        actions.keyUp(Keys.LEFT_CONTROL).build().perform();
     }
 
     public void moveMouseAndClick() {
@@ -193,7 +214,7 @@ public class CustomElement {
 
     public void scrollTo() {
         log.info("Scrolling to:: [" + this.name + "]");
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView()", this.getRawElement());
+        jsExecutor.executeScript("arguments[0].scrollIntoView()", this.getRawElement());
     }
 
     public String getAttribute(String attributeName) {
