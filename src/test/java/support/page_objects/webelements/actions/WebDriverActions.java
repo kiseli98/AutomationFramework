@@ -1,19 +1,27 @@
 package support.page_objects.webelements.actions;
 
-import java.util.Iterator;
-import java.util.Set;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.WebDriver;
 import support.managers.WebDriverFactory;
 import support.page_objects.webelements.CustomElement;
 
+import java.util.Iterator;
+import java.util.Set;
+
 @Log4j
 public class WebDriverActions {
-//    final Logger logger = Logger.getLogger(WebDriverActions.class);
     private String mainWindow = null;
     private WebDriver driver = WebDriverFactory.getWebDriver();
     
     public WebDriverActions() {
+    }
+
+    public static void STOP_FOR_DEBUG(int timeoutInSeconds) {
+        try {
+            Thread.sleep(timeoutInSeconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
     
     public String getPageTitle() {
@@ -92,19 +100,5 @@ public class WebDriverActions {
 
     public void switchToParentFrame() {
         driver.switchTo().parentFrame();
-    }
-
-    public void main(String[] args) {
-
-//        Button newTabButton = new Button(By.id("newTabBtn"), "Button that will open new tab", null, driver);
-//        TextInput email = new TextInput(By.xpath("//input"), "Email input", null, driver);
-//        Button login = new Button(By.id("loginBtn"), "Login button", null, driver);
-//
-//        WebDriverActions.switchToChildWindow();
-//        email.sendKeys("test@email.com");
-//        login.click();
-//        WebDriverActions.closeAndSwitchToParentWindow();
-//
-
     }
 }

@@ -19,4 +19,10 @@ public abstract class ContentPage extends BasePage {
         Wait.untilPageLoadComplete(driver, timeoutInSeconds);
         Wait.untilJqueryIsDone(driver, timeoutInSeconds);
     }
+
+    @Override
+    public void waitPageReady() {
+        Wait.untilPageLoadComplete(driver, MAX_WAIT_TIME);
+        Wait.untilJqueryIsDone(driver, MAX_WAIT_TIME);
+    }
 }

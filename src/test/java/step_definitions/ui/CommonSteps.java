@@ -2,7 +2,7 @@ package step_definitions.ui;
 
 import io.cucumber.java8.En;
 import org.openqa.selenium.WebDriver;
-import support.config.ConfigFileReader;
+import support.config.ConfigReader;
 import support.context.TestContext;
 import support.managers.FileReaderManager;
 import support.managers.WebDriverFactory;
@@ -15,7 +15,7 @@ import support.utils.ElementResolver;
 public class CommonSteps implements En {
 
     public CommonSteps(TestContext context) {
-        ConfigFileReader configs = FileReaderManager.getInstance().getConfigReader();
+        ConfigReader configs = FileReaderManager.getInstance().getConfigReader();
 
         GooglePage googlePage = context.getPageObjectManager().get(GooglePage.class);
         WebStorePage webStorePage = context.getPageObjectManager().get(WebStorePage.class);

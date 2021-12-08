@@ -40,8 +40,8 @@ public class WebStorePage extends ContentPage {
     }
 
     @Override
-    public void waitPageReady(long timeoutInSeconds) {
-        super.waitPageReady(timeoutInSeconds);
+    public void waitPageReady() {
+        super.waitPageReady();
 //TODO
     }
 

@@ -1,11 +1,11 @@
 package support.managers;
 
-import support.config.ConfigFileReader;
+import support.config.ConfigReader;
 import support.config.JsonDataReader;
 
 public class FileReaderManager {
     private static FileReaderManager fileReaderManager = new FileReaderManager();
-    private static ConfigFileReader configFileReader;
+    private static ConfigReader configReader;
     private static JsonDataReader jsonDataReader;
 
     private FileReaderManager() {
@@ -15,8 +15,8 @@ public class FileReaderManager {
         return fileReaderManager;
     }
 
-    public ConfigFileReader getConfigReader() {
-        return (configFileReader == null) ? new ConfigFileReader() : configFileReader;
+    public ConfigReader getConfigReader() {
+        return (configReader == null) ? new ConfigReader() : configReader;
     }
 
     public JsonDataReader getJsonReader() {

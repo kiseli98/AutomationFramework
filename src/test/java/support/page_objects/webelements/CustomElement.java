@@ -1,24 +1,23 @@
 package support.page_objects.webelements;
 
-import java.util.Arrays;
 import lombok.extern.log4j.Log4j;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import support.config.ConfigFileReader;
+import support.config.ConfigReader;
 import support.managers.FileReaderManager;
+import support.managers.WebDriverFactory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import support.managers.WebDriverFactory;
 
 @Log4j
 public class CustomElement {
-    protected ConfigFileReader configs = FileReaderManager.getInstance().getConfigReader();
+    protected ConfigReader configs = FileReaderManager.getInstance().getConfigReader();
     protected WebDriver driver = WebDriverFactory.getWebDriver();
     protected JavascriptExecutor jsExecutor = ((JavascriptExecutor) driver);
     protected CustomElement parentElement;
@@ -80,7 +79,6 @@ public class CustomElement {
         return name;
     }
 
-
     public void click() {
         log.info("Clicking:: [" + this.name + "]");
         this.getRawElement().click();
@@ -97,7 +95,7 @@ public class CustomElement {
 
     public void hover(CustomElement el) {
         if (this.isDisplayed()) {
-            log.info("Hovering:: [" + this.name  + "]");
+            log.info("Hovering:: [" + this.name + "]");
             new Actions(this.driver).moveToElement(el.getRawElement()).moveToElement(this.getRawElement()).perform();
         } else {
             throw new Error("Cannot hover invisible element");
@@ -115,7 +113,7 @@ public class CustomElement {
     }
 
     public void clickMultipleCustomElementsWithCtrl(List<CustomElement> elements) {
-        log.info("Right clicking:: [" + this.name + "]");
+        log.info("CTRL click on a list of elements");
         Actions actions = new Actions(this.driver);
         actions.keyDown(Keys.LEFT_CONTROL);
         elements.forEach(el -> actions.click(el.getRawElement()));
@@ -123,7 +121,7 @@ public class CustomElement {
     }
 
     public void clickMultipleWebElementsWithCtrl(List<WebElement> elements) {
-        log.info("Right clicking:: [" + this.name + "]");
+        log.info("CTRL click on a list of elements");
         Actions actions = new Actions(this.driver);
         actions.keyDown(Keys.LEFT_CONTROL);
         elements.forEach(actions::click);
@@ -153,6 +151,14 @@ public class CustomElement {
     //    TODO
     public static void tryToRecover(Exception exception, CustomElement elem) {
 
+    }
+
+    public void sleepFor(int timeoutInSeconds){
+        try {
+            Thread.sleep(timeoutInSeconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean isDisplayed() {
@@ -236,8 +242,10 @@ public class CustomElement {
         return isGone;
     }
 
-    //TODO handle exception NoSuchElementException (WebDriverWait handles it?). Ret false in this case
-    //TODO test not.invisibilityOf solution
+    public boolean waitTillIsGone() {
+        return waitTillIsGone(MAX_WAIT_TIME);
+    }
+
     public boolean waitTillIsVisible(long timeoutInSeconds) {
         log.info("Waiting till element [" + this.name + "] is visible");
         WebDriverWait wait = new WebDriverWait(this.driver, timeoutInSeconds);
@@ -246,12 +254,15 @@ public class CustomElement {
             wait.until(ExpectedConditions.visibilityOfElementLocated(this.locator));
             log.info("Element has become visible");
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             log.info("Element is still not visible");
             return false;
         }
     }
 
+    public boolean waitTillIsVisible() {
+        return waitTillIsVisible(MAX_WAIT_TIME);
+    }
 
     public boolean waitElementToHaveText(String text, long timeoutInSeconds) {
         log.info("Waiting till element [" + this.name + "] is has text: " + text);
@@ -265,6 +276,9 @@ public class CustomElement {
         return textPresent;
     }
 
+    public boolean waitElementToHaveText(String text) {
+        return waitElementToHaveText(text, MAX_WAIT_TIME);
+    }
 
     public boolean waitTillIsPresent(long timeoutInSeconds) {
         log.info("Waiting till element [" + this.name + "] is present in DOM");
@@ -273,12 +287,15 @@ public class CustomElement {
             wait.until(ExpectedConditions.presenceOfElementLocated(this.locator));
             log.info("Element is present");
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             log.info("Element is not present");
             return false;
         }
     }
 
+    public boolean waitTillIsPresent() {
+        return waitTillIsPresent(MAX_WAIT_TIME);
+    }
 
     public boolean waitTillIsEnabled(long timeoutInSeconds) {
         log.info("Waiting till element [" + this.name + "] is enabled and clickable");
@@ -287,10 +304,14 @@ public class CustomElement {
             wait.until(ExpectedConditions.elementToBeClickable(this.getRawElement()));
             log.info("Element is enabled");
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             log.info("Element is not enabled");
             return false;
         }
+    }
+
+    public boolean waitTillIsEnabled() {
+        return waitTillIsEnabled(MAX_WAIT_TIME);
     }
 
     public boolean waitTillIsDisabled(long timeoutInSeconds) {
@@ -300,10 +321,14 @@ public class CustomElement {
             wait.until(ExpectedConditions.not(ExpectedConditions.elementToBeClickable(this.getRawElement())));
             log.info("Element is disabled");
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             log.info("Element is not disabled");
             return false;
         }
+    }
+
+    public boolean waitTillIsDisabled() {
+        return waitTillIsDisabled(MAX_WAIT_TIME);
     }
 
 }

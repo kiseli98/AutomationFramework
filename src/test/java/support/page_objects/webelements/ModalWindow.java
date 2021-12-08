@@ -2,7 +2,6 @@ package support.page_objects.webelements;
 
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 @Log4j
 public class ModalWindow extends CustomElement {
@@ -31,25 +30,25 @@ public class ModalWindow extends CustomElement {
         super(locator, name != null ? name + " Modal" : null, parentElement);
     }
 
-    public ModalWindow(String modalText, WebDriver driver) {
+    public ModalWindow(String modalText) {
         super(By.xpath(defaultLocator.replaceAll("modalName", modalText)), "Modal:: " + modalText);
     }
 
     public CustomElement getConfirmButton() {
-        return  this.element(By.xpath(confirmButtonLocator));
+        return this.element(By.xpath(confirmButtonLocator));
     }
 
     public CustomElement getRejectButton() {
-        return  this.element(By.xpath(rejectButtonLocator));
+        return this.element(By.xpath(rejectButtonLocator));
     }
 
     public void confirm() {
-        this.getConfirmButton().waitTillIsEnabled(10);
+        this.getConfirmButton().waitTillIsEnabled();
         this.getConfirmButton().click();
     }
 
     public void reject() {
-        this.getRejectButton().waitTillIsEnabled(10);
+        this.getRejectButton().waitTillIsEnabled();
         this.getRejectButton().click();
     }
 

@@ -11,7 +11,7 @@ public class PlainDropDown extends CustomElement {
     public PlainDropDown(By locator, String name, CustomElement parentElement) {
         super(locator, name != null ? name + " Plane DropDown" : null, parentElement);
 
-        this.optionsRepeater = new ElementsList<CustomElement>(By.xpath(".//option[@*]"), null, this);
+        this.optionsRepeater = new ElementsList<CustomElement>(By.xpath(".//option[@*]"), "Plain Dropdown options", this);
     }
 
     public void expand() {
@@ -24,12 +24,11 @@ public class PlainDropDown extends CustomElement {
     }
 
     public void setOptionByIndex(int index) {
-       if (index < 0) {
+        if (index < 0) {
             this.optionsRepeater.getLast().click();
-        }
-       else {
+        } else {
             this.optionsRepeater.get(index, CustomElement.class).click();
-       }
+        }
     }
 
 }

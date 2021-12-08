@@ -6,7 +6,6 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.config.OperatingSystem;
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -18,7 +17,7 @@ import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import support.config.ConfigFileReader;
+import support.config.ConfigReader;
 import support.enums.Browser;
 import support.enums.DriverType;
 import support.enums.EnvironmentType;
@@ -32,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 public class WebDriverFactory {
 
 //	final Logger logger = Logger.getLogger(WebDriverFactory.class);
-	private final ConfigFileReader config = FileReaderManager.getInstance().getConfigReader();
+	private final ConfigReader config = FileReaderManager.getInstance().getConfigReader();
 	private static final DriverType driverType =
 		config.getBrowserFromParams() != null ? config.getBrowserFromParams() : config.getBrowser();
 	private static final EnvironmentType environmentType =

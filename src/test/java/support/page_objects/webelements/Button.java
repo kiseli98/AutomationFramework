@@ -11,7 +11,7 @@ public class Button extends CustomElement {
     }
 
     public void click() {
-        this.waitTillIsEnabled(30);
+        this.waitTillIsEnabled();
         super.click();
     }
 }

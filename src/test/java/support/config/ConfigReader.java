@@ -9,11 +9,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
-public class ConfigFileReader {
+public class ConfigReader {
     private final Properties properties;
     private String propertyFilePath = "src\\test\\java\\support\\config\\Configuration.properties";
 
-    public ConfigFileReader() {
+    public ConfigReader() {
         BufferedReader reader;
         try {
             reader = new BufferedReader(new FileReader(propertyFilePath));
@@ -30,7 +30,7 @@ public class ConfigFileReader {
         }
     }
 
-    public ConfigFileReader(String filePath) {
+    public ConfigReader(String filePath) {
         this.propertyFilePath = filePath;
         BufferedReader reader;
         try {
@@ -50,14 +50,8 @@ public class ConfigFileReader {
 
     public String getProperty(String key) {
         String property = properties.getProperty(key);
-        if(property!= null) return property;
+        if (property != null) return property;
         else throw new RuntimeException("[" + key + "] not specified in the " + propertyFilePath + " file.");
-    }
-
-    public String getDriverDir() {
-        String driverPath = properties.getProperty("driverPath");
-        if (driverPath != null) return driverPath;
-        else throw new RuntimeException("driverPath not specified in the Configuration file.");
     }
 
     public long getImplicitWait() {
@@ -120,13 +114,6 @@ public class ConfigFileReader {
         else
             throw new RuntimeException("Environment Type Key value in Configuration.properties is not matched : " + environmentName);
     }
-
-    public Boolean getBrowserWindowSize() {
-        String windowSize = properties.getProperty("windowMaximize");
-        if (windowSize != null) return Boolean.valueOf(windowSize);
-        return true;
-    }
-
 
     public String getTestDataJsonsResourcePath() {
         String testDataJsonsResourcePath = properties.getProperty("testDataJsonsResourcePath");

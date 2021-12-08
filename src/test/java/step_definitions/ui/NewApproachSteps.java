@@ -3,16 +3,12 @@ package step_definitions.ui;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java8.En;
 import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
 import support.context.ScenarioContext;
 import support.context.TestContext;
 import support.managers.PageObjectManager;
-import support.managers.WebDriverFactory;
 import support.page_objects.pages.WebStorePage;
 import support.page_objects.webelements.Button;
 import support.ui_dto.User;
-
-import java.util.Map;
 
 public class NewApproachSteps implements En {
 
@@ -26,15 +22,15 @@ public class NewApproachSteps implements En {
 
         Given("^I am on the store page$", () -> {
             webStorePage.navigate();
-            webStorePage.waitPageReady(30);
+            webStorePage.waitPageReady();
         });
 
         When("^I login with the following credentials$", (DataTable dataTable) -> {
             User user = new User(dataTable);
             webStorePage.header.signInButton.click();
-            webStorePage.authenticationComponent.waitTillIsVisible(10);
+            webStorePage.authenticationComponent.waitTillIsVisible();
             webStorePage.authenticationComponent.authenticate(user.getUsername(), user.getPassword());
-            webStorePage.authenticationComponent.waitTillIsGone(10);
+            webStorePage.authenticationComponent.waitTillIsGone();
         });
 
         And("^I open (order history|my credit|my addresses|my info|my wishlist)$", (String param) -> {
@@ -56,7 +52,7 @@ public class NewApproachSteps implements En {
         });
 
         Then("^I see order history table is displayed$", () -> {
-            webStorePage.orderHistoryComponent.waitTillIsVisible(10);
+            webStorePage.orderHistoryComponent.waitTillIsVisible();
             webStorePage.orderHistoryComponent.expectToBeDisplayed();
         });
 

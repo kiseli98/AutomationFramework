@@ -20,7 +20,7 @@ public class DropDownWithSearch extends CustomElement {
     }
 
     public void search(String val) {
-        this.searchInput.waitTillIsEnabled(10);
+        this.searchInput.waitTillIsEnabled();
         this.searchInput.click();
         this.searchInput.sendKeys(val);
     }
@@ -30,9 +30,8 @@ public class DropDownWithSearch extends CustomElement {
         this.search(val);
         if (this.options.getCount() > 0) {
             this.options.getByStrictText(val, CustomElement.class, this).click();
-        }
-        else{
-            throw new Error("Option [" + val +"] is missing");
+        } else {
+            throw new Error("Option [" + val + "] is missing");
         }
     }
 
