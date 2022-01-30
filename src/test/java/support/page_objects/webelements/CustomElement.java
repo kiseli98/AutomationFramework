@@ -1,6 +1,7 @@
 package support.page_objects.webelements;
 
 import lombok.extern.log4j.Log4j;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -153,12 +154,38 @@ public class CustomElement {
 
     }
 
-    public void sleepFor(int timeoutInSeconds){
+    public void sleepFor(int timeoutInSeconds) {
         try {
             Thread.sleep(timeoutInSeconds);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public By getElementLocator(WebElement element) {
+        try {
+            Object proxyOrigin = FieldUtils.readField(element, "h", true);
+            Object locator = FieldUtils.readField(proxyOrigin, "locator", true);
+            Object findBy = FieldUtils.readField(locator, "by", true);
+            if (findBy != null) {
+                return (By) findBy;
+            }
+        } catch (IllegalAccessException ignored) {
+        }
+        return null;
+    }
+
+    public By getElementLocator() {
+        try {
+            Object proxyOrigin = FieldUtils.readField(this.getRawElement(), "h", true);
+            Object locator = FieldUtils.readField(proxyOrigin, "locator", true);
+            Object findBy = FieldUtils.readField(locator, "by", true);
+            if (findBy != null) {
+                return (By) findBy;
+            }
+        } catch (IllegalAccessException ignored) {
+        }
+        return null;
     }
 
     public boolean isDisplayed() {
