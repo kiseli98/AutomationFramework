@@ -109,14 +109,14 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
-            <version>6.6.0</version>
+            <version>7.2.3</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>6.6.0</version>
+            <version>7.2.3</version>
         </dependency>
 
 <!--        <dependency>-->
@@ -141,13 +141,13 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java8</artifactId>
-            <version>6.6.0</version>
+            <version>7.2.3</version>
         </dependency>
 
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-core</artifactId>
-            <version>6.6.0</version>
+            <version>7.2.3</version>
         </dependency>
 
         <dependency>

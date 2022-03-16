@@ -1,12 +1,13 @@
 package support.managers;
 
+import org.reflections.Reflections;
+import support.page_objects.pages.Page;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import org.reflections.Reflections;
-import support.page_objects.pages.Page;
 
 
 public class PageObjectManager {

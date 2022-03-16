@@ -1,7 +1,6 @@
 package support.page_objects.webelements;
 
 import lombok.extern.log4j.Log4j;
-import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -64,6 +63,13 @@ public class CustomElement {
                 this.parentElement.getRawElement().findElement(this.locator) : this.driver.findElement(locator);
     }
 
+    public String getFullXpathString() {
+        StringBuilder locator = new StringBuilder(this.locator.toString().replace("By.xpath: .", ""));
+        return this.parentElement != null ?
+                locator.insert(0, this.parentElement.getFullXpathString()).toString()
+                : locator.toString();
+    }
+
     public CustomElement element(By locator) {
         return new CustomElement(locator, null, this);
     }
@@ -113,22 +119,6 @@ public class CustomElement {
         new Actions(this.driver).contextClick(this.getRawElement()).perform();
     }
 
-    public void clickMultipleCustomElementsWithCtrl(List<CustomElement> elements) {
-        log.info("CTRL click on a list of elements");
-        Actions actions = new Actions(this.driver);
-        actions.keyDown(Keys.LEFT_CONTROL);
-        elements.forEach(el -> actions.click(el.getRawElement()));
-        actions.keyUp(Keys.LEFT_CONTROL).build().perform();
-    }
-
-    public void clickMultipleWebElementsWithCtrl(List<WebElement> elements) {
-        log.info("CTRL click on a list of elements");
-        Actions actions = new Actions(this.driver);
-        actions.keyDown(Keys.LEFT_CONTROL);
-        elements.forEach(actions::click);
-        actions.keyUp(Keys.LEFT_CONTROL).build().perform();
-    }
-
     public void moveMouseAndClick() {
         log.info("Double clicking:: [" + this.name + "]");
         new Actions(this.driver).moveToElement(this.getRawElement()).click().perform();
@@ -162,31 +152,33 @@ public class CustomElement {
         }
     }
 
-    public By getElementLocator(WebElement element) {
-        try {
-            Object proxyOrigin = FieldUtils.readField(element, "h", true);
-            Object locator = FieldUtils.readField(proxyOrigin, "locator", true);
-            Object findBy = FieldUtils.readField(locator, "by", true);
-            if (findBy != null) {
-                return (By) findBy;
-            }
-        } catch (IllegalAccessException ignored) {
-        }
-        return null;
-    }
 
-    public By getElementLocator() {
-        try {
-            Object proxyOrigin = FieldUtils.readField(this.getRawElement(), "h", true);
-            Object locator = FieldUtils.readField(proxyOrigin, "locator", true);
-            Object findBy = FieldUtils.readField(locator, "by", true);
-            if (findBy != null) {
-                return (By) findBy;
-            }
-        } catch (IllegalAccessException ignored) {
-        }
-        return null;
-    }
+//    TODO linked to HtmlElements, PageFactory.init (HtmlElementsDecorators)
+//    public By getElementLocator(WebElement element) {
+//        try {
+//            Object proxyOrigin = FieldUtils.readField(element, "h", true);
+//            Object locator = FieldUtils.readField(proxyOrigin, "locator", true);
+//            Object findBy = FieldUtils.readField(locator, "by", true);
+//            if (findBy != null) {
+//                return (By) findBy;
+//            }
+//        } catch (IllegalAccessException ignored) {
+//        }
+//        return null;
+//    }
+//
+//    public By getElementLocator() {
+//        try {
+//            Object proxyOrigin = FieldUtils.readField(this.getRawElement(), "h", true);
+//            Object locator = FieldUtils.readField(proxyOrigin, "locator", true);
+//            Object findBy = FieldUtils.readField(locator, "by", true);
+//            if (findBy != null) {
+//                return (By) findBy;
+//            }
+//        } catch (IllegalAccessException ignored) {
+//        }
+//        return null;
+//    }
 
     public boolean isDisplayed() {
         log.info("Is Displayed:: [" + this.name + "]");
@@ -289,6 +281,21 @@ public class CustomElement {
 
     public boolean waitTillIsVisible() {
         return waitTillIsVisible(MAX_WAIT_TIME);
+    }
+
+    public boolean isElementVisible() {
+        this.setImplicitTimeout(IMPLICIT_NO_TIMEOUT);
+        try {
+            boolean isDisplayed = this.getRawElement().isDisplayed();
+            if (isDisplayed)
+                log.info("Element is visible");
+            return isDisplayed;
+        } catch (NoSuchElementException e) {
+            log.info("Element is not visible");
+            return false;
+        } finally {
+            this.resetImplicitTimeout();
+        }
     }
 
     public boolean waitElementToHaveText(String text, long timeoutInSeconds) {

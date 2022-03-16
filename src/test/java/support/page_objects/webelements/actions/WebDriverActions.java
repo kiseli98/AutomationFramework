@@ -1,19 +1,25 @@
 package support.page_objects.webelements.actions;
 
 import lombok.extern.log4j.Log4j;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import support.managers.WebDriverFactory;
 import support.page_objects.webelements.CustomElement;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 @Log4j
 public class WebDriverActions {
     private String mainWindow = null;
-    private WebDriver driver = WebDriverFactory.getWebDriver();
-    
+    private final WebDriver driver = WebDriverFactory.getWebDriver();
+    private Actions actions;
+
     public WebDriverActions() {
+        actions = new Actions(driver);
     }
 
     public static void STOP_FOR_DEBUG(int timeoutInSeconds) {
@@ -23,7 +29,7 @@ public class WebDriverActions {
             e.printStackTrace();
         }
     }
-    
+
     public String getPageTitle() {
         log.info("Getting page title");
         return driver.getTitle();
@@ -101,4 +107,37 @@ public class WebDriverActions {
     public void switchToParentFrame() {
         driver.switchTo().parentFrame();
     }
+
+    public void clickMultipleCustomElementsWithCtrl(List<CustomElement> elements) {
+        log.info("CTRL click on a list of elements");
+        actions.keyDown(Keys.LEFT_CONTROL);
+        elements.forEach(el -> actions.click(el.getRawElement()));
+        actions.keyUp(Keys.LEFT_CONTROL).build().perform();
+    }
+
+    public void clickMultipleWebElementsWithCtrl(List<WebElement> elements) {
+        log.info("CTRL click on a list of elements");
+        actions.keyDown(Keys.LEFT_CONTROL);
+        elements.forEach(actions::click);
+        actions.keyUp(Keys.LEFT_CONTROL).build().perform();
+    }
+
+
+    public void pressDeleteKey() {
+        actions.sendKeys(Keys.DELETE).build().perform();
+    }
+
+    public void pressCTRLV() {
+        actions.sendKeys(Keys.chord(Keys.LEFT_CONTROL, "v")).build().perform();
+    }
+
+    public void pressCTRLC() {
+        actions.sendKeys(Keys.chord(Keys.LEFT_CONTROL, "c")).build().perform();
+    }
+
+    public void dragAndDrop(CustomElement element, CustomElement target) {
+        log.info("Dragging [" + element.getName() + "] into [" + target.getName() + "]");
+        actions.dragAndDrop(element.getRawElement(), target.getRawElement()).perform();
+    }
+
 }

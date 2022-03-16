@@ -1,19 +1,44 @@
 package test.ret;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.openqa.selenium.WebElement;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-class Test
-{
-    public static void main (String[] args)
-    {
-        System.out.println(10 + 20 + "j");
-        System.out.println("j" + 10 + 20);
+
+public class Test {
+
+
+    public static void main(String[] args) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            Map<?, ?> map = mapper.readValue(Paths.get("C:/Users/nkiselciuk/Desktop/DST Collection.postman_test_run.json").toFile(), Map.class);
+            List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("results");
+            System.out.println("Back-end performance for API calls:");
+            list.forEach(m -> {
+                List<Integer> times = (List<Integer>) m.get("times");
+                double avg = times.stream().mapToDouble(a -> a).sum() / (times.size() * 1000);
+                System.out.println(m.get("name") + " - " + avg);
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+//class Test
+//{
+//    public static void main (String[] args)
+//    {
+//        System.out.println(10 + 20 + "j");
+//        System.out.println("j" + 10 + 20);
+//    }
 
 //    public int array667(int[] nums) {
 //        String str;

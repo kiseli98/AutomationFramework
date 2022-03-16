@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 
 @Log4j
 public class ElementsList<T extends CustomElement> {
-    //    final Logger logger = Logger.getLogger(ElementsList.class);
     protected static final String xpathPattern = "\\.[/]{1,2}.*";
 
     protected WebDriver driver = WebDriverFactory.getWebDriver();
