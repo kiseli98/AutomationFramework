@@ -4,6 +4,8 @@ import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
+import java.util.ArrayList;
+
 @Log4j
 public class TextInput extends CustomElement {
     public TextInput(By locator, String name, CustomElement parentElement) {

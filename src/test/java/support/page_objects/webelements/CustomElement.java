@@ -154,6 +154,9 @@ public class CustomElement {
 
 
 //    TODO linked to HtmlElements, PageFactory.init (HtmlElementsDecorators)
+//     PageFactory
+//                .initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(getWebDriver())),
+//                        this);
 //    public By getElementLocator(WebElement element) {
 //        try {
 //            Object proxyOrigin = FieldUtils.readField(element, "h", true);
@@ -217,12 +220,12 @@ public class CustomElement {
 
     public void executeJs(String js) {
         log.info("Executing JS script \"" + js + "\" on [" + this.name + "]");
-        jsExecutor.executeScript("arguments[0].click()", this.getRawElement());
+        jsExecutor.executeScript(js, this.getRawElement());
     }
 
     public void executeJsOnElement(String js, CustomElement el) {
         log.info("Executing JS script \"" + js + "\" on [" + el.name + "]");
-        jsExecutor.executeScript("arguments[0].click()", el.getRawElement());
+        jsExecutor.executeScript(js, el.getRawElement());
     }
 
     public void setImplicitTimeout(long timeoutInMilliseconds) {

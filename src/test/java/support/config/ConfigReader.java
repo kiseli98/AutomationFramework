@@ -92,6 +92,7 @@ public class ConfigReader {
         else return null;
     }
 
+//    TODO consider      def value    String environmentName = String.valueOf(System.getProperty("env", defaultValue));
     public EnvironmentType getEnvFromParams() {
         String environmentName = String.valueOf(System.getProperty("env"));
         if (environmentName.equalsIgnoreCase("local")) return EnvironmentType.LOCAL;

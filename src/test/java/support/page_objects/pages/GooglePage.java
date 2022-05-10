@@ -26,9 +26,9 @@ public class GooglePage extends ContentPage {
         super(name);
         PageFactory.initElements(this.driver, this);
 
-        this.searchBtnX = new CustomElement(By.name("btnK"), "Search button", null);
+        this.searchBtnX = new CustomElement(By.name("btnK"), "Search button");
         this.searchbarX = new TextInput(By.name("q"), "Search bar", null);
-        this.testEl = new CustomElement(By.xpath(".//body"), "test el", null);
+        this.testEl = new CustomElement(By.xpath(".//body"), "test el");
     }
 
 
