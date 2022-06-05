@@ -10,7 +10,7 @@ import lombok.Getter;
 public enum Browser {
 	CHROME(DriverManagerType.CHROME),
 	FIREFOX(DriverManagerType.FIREFOX),
-	HEADLESS(DriverManagerType.CHROME);
+	API(DriverManagerType.CHROME);
 
 	private DriverManagerType driverType;
 }

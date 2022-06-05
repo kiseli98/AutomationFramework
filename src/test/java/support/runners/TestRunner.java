@@ -5,7 +5,7 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/java/features/ui",
+@CucumberOptions(features = "src/test/java/features/api",
         glue = {"step_definitions.hooks", "support.ui_dto.config",
                 "step_definitions.api", "step_definitions.ui"},
 //        tags = "@runThis",

@@ -4,5 +4,6 @@ public enum DriverType {
     FIREFOX,
     CHROME,
     ANDROID,
-    IE
+    IE,
+    API
 }

@@ -106,6 +106,9 @@ public class WebDriverFactory {
 			case IE:
 				driver = new InternetExplorerDriver();
 				break;
+			case API:
+				driver = new ChromeDriver(getHeadlessChromeOptions());
+				break;
 			default:
 				driver = new ChromeDriver(getChromeOptions());
 				break;
@@ -137,9 +140,18 @@ public class WebDriverFactory {
 		ChromeOptions options = new ChromeOptions();
 		options.setCapability(CapabilityType.PLATFORM_NAME, Platform.WINDOWS);
 		options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
-//        options.setCapability(CapabilityType.BROWSER_VERSION, "latest");
 		options.addArguments("--lang=en-GB");
 		options.addArguments("--incognito");
+		return options;
+	}
+
+	private ChromeOptions getHeadlessChromeOptions() {
+		ChromeOptions options = new ChromeOptions();
+		options.setCapability(CapabilityType.PLATFORM_NAME, Platform.WINDOWS);
+		options.setCapability(CapabilityType.BROWSER_NAME, "chrome");
+		options.addArguments("--lang=en-GB");
+		options.addArguments("--incognito");
+		options.addArguments("--headless");
 		return options;
 	}
 

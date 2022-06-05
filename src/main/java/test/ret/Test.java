@@ -1,35 +1,88 @@
 package test.ret;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.openqa.selenium.WebElement;
-
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 
 public class Test {
 
 
     public static void main(String[] args) {
-        ObjectMapper mapper = new ObjectMapper();
-
-        try {
-            Map<?, ?> map = mapper.readValue(Paths.get("C:/Users/nkiselciuk/Desktop/DST Collection.postman_test_run.json").toFile(), Map.class);
-            List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("results");
-            System.out.println("Back-end performance for API calls:");
-            list.forEach(m -> {
-                List<Integer> times = (List<Integer>) m.get("times");
-                double avg = times.stream().mapToDouble(a -> a).sum() / (times.size() * 1000);
-                System.out.println(m.get("name") + " - " + avg);
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
+//        Bubble sort
+        int[] n = {1, 9, 10, 43, 3, 21, 89, 22, 6, 29, 34};
+        System.out.println(Arrays.toString(n));
+        for (int i = 0; i < n.length - 1; i++) {
+            for (int j = 0; j < n.length - i - 1; j++) {
+                if (n[j] > n[j + 1]) {
+                    int temp = n[j];
+                    n[j] = n[j + 1];
+                    n[j + 1] = temp;
+                }
+            }
         }
+        System.out.println(Arrays.toString(n));
+
+//        Selection sort 1
+//        int[] n1 = {1,9,10,43,3,21,89,22,6,29,34};
+//        System.out.println(Arrays.toString(n1));
+//        int low_index = 0;
+//        for (int i =0; i < n1.length - 1; i ++){
+//            low_index = i;
+//            for(int j = i + 1; j < n1.length; j++) {
+//                if(n1[j] < n1[low_index]){
+//                    low_index = j;
+//                }
+//            }
+//            int smaller = n1[low_index];
+//            n1[low_index] = n1[i];
+//            n1[i] = smaller;
+//
+//        }
+//        System.out.println(Arrays.toString(n1));
+
+//      Selection sort 2
+        int[] n2 = {1, 9, 10, 43, 3, 21, 89, 22, 6, 29, 34};
+
+        System.out.println(Arrays.toString(n2));
+        for (int i = 0; i < n2.length - 1; i++) {
+            for (int j = i + 1; j < n2.length; j++) {
+                if (n2[j] < n2[i]) {
+                    int smaller = n2[j];
+                    n2[j] = n2[i];
+                    n2[i] = smaller;
+                }
+            }
+        }
+        System.out.println(Arrays.toString(n2));
+
+
+//        List<String> substrings = Arrays.asList(s.split(""));
+//        substrings.forEach(System.out::println);
+
+//        List<String> allDigit = new ArrayList<String>();
+//        Pattern p = Pattern.compile("\\d*");
+////        Matcher m = p.matcher(s);
+//
+//        float d = 0.1f;
+//        for (int i=0; i < 50; i++) {
+//            System.out.println(d);
+//            d+=0.1;
+//        }
+//        System.out.println(9/0.0);
+//        m.
+//        ObjectMapper mapper = new ObjectMapper();
+//
+//        try {
+//            Map<?, ?> map = mapper.readValue(Paths.get("C:/Users/nkiselciuk/Desktop/DST Collection.postman_test_run.json").toFile(), Map.class);
+//            List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("results");
+//            System.out.println("Back-end performance for API calls:");
+//            list.forEach(m -> {
+//                List<Integer> times = (List<Integer>) m.get("times");
+//                double avg = times.stream().mapToDouble(a -> a).sum() / (times.size() * 1000);
+//                System.out.println(m.get("name") + " - " + avg);
+//            });
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
 //class Test
