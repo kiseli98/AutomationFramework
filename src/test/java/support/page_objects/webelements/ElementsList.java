@@ -114,7 +114,8 @@ public class ElementsList<T extends CustomElement> {
 
     public List<String> getText() {
         log.info("Getting elements list text");
-        return Helpers.range(getCount()).stream().map(i -> this.getElement().get(i).getText().trim()).collect(Collectors.toList());
+        return this.getElements().stream().map(el -> el.getText().trim()).collect(Collectors.toList());
+//        return Helpers.range(getCount()).stream().map(i -> this.getElement().get(i).getText().trim()).collect(Collectors.toList());
     }
 
     public <T extends CustomElement> T getByContainingText(String s, Class<T> clazz) {

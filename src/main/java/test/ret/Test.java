@@ -1,25 +1,34 @@
 package test.ret;
 
-import java.util.Arrays;
-
+import java.util.*;
 
 public class Test {
 
 
     public static void main(String[] args) {
-//        Bubble sort
-        int[] n = {1, 9, 10, 43, 3, 21, 89, 22, 6, 29, 34};
-        System.out.println(Arrays.toString(n));
-        for (int i = 0; i < n.length - 1; i++) {
-            for (int j = 0; j < n.length - i - 1; j++) {
-                if (n[j] > n[j + 1]) {
-                    int temp = n[j];
-                    n[j] = n[j + 1];
-                    n[j + 1] = temp;
-                }
-            }
+        String s = "RitaSkitter";
+
+        StringBuilder b = new StringBuilder();
+
+        for(int i = s.length()-1; i >= 0; i --){
+            b.append(s.charAt(i));
         }
-        System.out.println(Arrays.toString(n));
+        System.out.println(b);
+
+
+////        Bubble sort
+//        int[] n = {1, 9, 10, 43, 3, 21, 89, 22, 6, 29, 34};
+//        System.out.println(Arrays.toString(n));
+//        for (int i = 0; i < n.length - 1; i++) {
+//            for (int j = 0; j < n.length - i - 1; j++) {
+//                if (n[j] > n[j + 1]) {
+//                    int temp = n[j];
+//                    n[j] = n[j + 1];
+//                    n[j + 1] = temp;
+//                }
+//            }
+//        }
+//        System.out.println(Arrays.toString(n));
 
 //        Selection sort 1
 //        int[] n1 = {1,9,10,43,3,21,89,22,6,29,34};
@@ -39,20 +48,23 @@ public class Test {
 //        }
 //        System.out.println(Arrays.toString(n1));
 
-//      Selection sort 2
-        int[] n2 = {1, 9, 10, 43, 3, 21, 89, 22, 6, 29, 34};
-
-        System.out.println(Arrays.toString(n2));
-        for (int i = 0; i < n2.length - 1; i++) {
-            for (int j = i + 1; j < n2.length; j++) {
-                if (n2[j] < n2[i]) {
-                    int smaller = n2[j];
-                    n2[j] = n2[i];
-                    n2[i] = smaller;
-                }
-            }
-        }
-        System.out.println(Arrays.toString(n2));
+////      Selection sort 2
+//        int[] n2 = {1, 9, 10, 43, 3, 21, 89, 22, 6, 29, 34};
+//
+//        System.out.println(Arrays.toString(n2));
+//        for (int i = 0; i < n2.length - 1; i++) {
+//            for (int j = i + 1; j < n2.length; j++) {
+//                if (n2[j] < n2[i]) {
+//                    int smaller = n2[j];
+//                    n2[j] = n2[i];
+//                    n2[i] = smaller;
+//                }
+//            }
+//        }
+//        System.out.println(Arrays.toString(n2));
+//
+//
+//    }
 
 
 //        List<String> substrings = Arrays.asList(s.split(""));
@@ -83,7 +95,6 @@ public class Test {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-    }
 
 //class Test
 //{
@@ -107,6 +118,7 @@ public class Test {
 //    }
 
 
+    }
 }
 //
 //public class Test {
