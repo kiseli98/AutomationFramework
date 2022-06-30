@@ -64,12 +64,19 @@ public class WebDriverActions {
         log.info("Switching to child window");
         setMainWindow();
         Set<String> s1 = driver.getWindowHandles();
-        Iterator<String> i1 = s1.iterator();
+//        Iterator<String> i1 = s1.iterator();
+//
+//        while (i1.hasNext()) {
+//            String childWindow = i1.next();
+//            if (!mainWindow.equalsIgnoreCase(childWindow)) {
+//                driver.switchTo().window(childWindow);
+//            }
+//        }
 
-        while (i1.hasNext()) {
-            String childWindow = i1.next();
-            if (!mainWindow.equalsIgnoreCase(childWindow)) {
-                driver.switchTo().window(childWindow);
+        for(String current : s1){
+            if (!mainWindow.equalsIgnoreCase(current)) {
+                driver.switchTo().window(current);
+                break;
             }
         }
     }
