@@ -5,6 +5,84 @@ import java.util.*;
 public class Test {
 
 
+    public void bubbleSort(int[] array) {
+        for (int i= 0; i < array.length; i ++){
+            for (int j = 0; j < array.length - i - 1; j ++) {
+                if(array[j] > array[j+1]) {
+                    int t = array[j + 1];
+                    array[j+ 1] = array[j];
+                    array[j] = t;
+                }
+            }
+        }
+
+    }
+
+    public static List<String> deviceNamesSystem(List<String> devicenames) {
+        HashMap<String, Integer> map = new HashMap<>();
+        List<String> result = new ArrayList<>();
+
+        for (String device : devicenames) {
+
+            if(map.containsKey(device)) {
+                map.put(device, map.get(device) + 1);
+                result.add(device + map.get(device));
+            }
+            else {
+                map.put(device, 0);
+                result.add(device);
+            }
+        }
+
+        return result;
+
+    }
+
+    public static String winner(String erica, String bob) {
+        char[] e = erica.toCharArray();
+        char[] b = erica.toCharArray();
+
+        int eScore = 0;
+        int bScore = 0;
+
+
+
+        for(int i=0; i < e.length ; i++){
+            if(e[i] == 'E') {
+                eScore += 1;
+            }
+            if(e[i] == 'M') {
+                eScore += 3;
+            }
+            if(e[i] == 'H') {
+                eScore += 5;
+            }
+        }
+
+        for(int i=0; i < b.length ; i++){
+            if(b[i] == 'E') {
+                bScore += 1;
+            }
+            if(b[i] == 'M') {
+                bScore += 3;
+            }
+            if(b[i] == 'H') {
+                bScore += 5;
+            }
+        }
+
+        if(bScore > eScore) {
+            return "Bob";
+        }
+        else if(bScore < eScore) {
+            return "Erica";
+        }
+        else {
+            return "Tie";
+        }
+    }
+
+
     public static void main(String[] args) {
         String s = "RitaSkitter";
 

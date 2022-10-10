@@ -2,6 +2,7 @@ package support.page_objects.webelements;
 
 import lombok.extern.log4j.Log4j;
 import org.junit.Assert;
+import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -19,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class CustomElement {
     protected ConfigReader configs = FileReaderManager.getInstance().getConfigReader();
     protected WebDriver driver = WebDriverFactory.getWebDriver();
+    protected Actions actions = new Actions(driver);
     protected JavascriptExecutor jsExecutor = ((JavascriptExecutor) driver);
     protected CustomElement parentElement;
     protected By locator;
@@ -46,7 +48,7 @@ public class CustomElement {
     public By getLocator() {
         return locator;
     }
-
+    @SuppressWarnings("unchecked")
     public <T extends CustomElement> T elementOfType(By locator, String name, Class<T> clazz) {
         T object = null;
         try {
@@ -270,6 +272,7 @@ public class CustomElement {
 
     public boolean waitTillIsVisible(long timeoutInSeconds) {
         log.info("Waiting till element [" + this.name + "] is visible");
+        this.setImplicitTimeout(IMPLICIT_NO_TIMEOUT);
         WebDriverWait wait = new WebDriverWait(this.driver, timeoutInSeconds);
         this.resetImplicitTimeout();
         try {

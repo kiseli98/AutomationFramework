@@ -18,15 +18,15 @@ public class DriverManager {
 		}
 	};
 
-	protected WebDriver getWebDriver() {
+	WebDriver getWebDriver() {
 		return webDriver.get();
 	}
 
-	protected void setWebDriver(WebDriver driver) {
+	void setWebDriver(WebDriver driver) {
 		webDriver.set(driver);
 	}
 
-	protected void quitWebDriver() {
+	void quitWebDriver() {
 		webDriver.remove();
 	}
 
